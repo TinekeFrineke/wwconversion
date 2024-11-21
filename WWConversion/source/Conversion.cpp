@@ -1,8 +1,9 @@
 // Conversion.cpp : Defines the entry point for the console application.
 //
 
-#include "model/XmlReader.h"
-#include "XmlWriter.h"
+#include "model/WWModel.h"
+#include "xmlreader/XmlReader.h"
+#include "xmlwriter/XmlWriter.h"
 
 #include <xercesc/util/PlatformUtils.hpp>
 

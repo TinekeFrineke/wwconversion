@@ -19,78 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Interface\XmlBonuscell.h" />
-    <ClInclude Include="Interface\XmlBonuscellReader.h" />
-    <ClInclude Include="Interface\XmlBonuscellWriter.h" />
-    <ClInclude Include="Interface\XmlBonuslist.h" />
-    <ClInclude Include="Interface\XmlBonuslistReader.h" />
-    <ClInclude Include="Interface\XmlBonuslistWriter.h" />
-    <ClInclude Include="Interface\XmlClass.h" />
-    <ClInclude Include="Interface\XmlDag.h" />
-    <ClInclude Include="Interface\XmlDagReader.h" />
-    <ClInclude Include="Interface\XmlDagWriter.h" />
-    <ClInclude Include="Interface\XmlGerecht.h" />
-    <ClInclude Include="Interface\XmlGerechtdef.h" />
-    <ClInclude Include="Interface\XmlGerechtdefReader.h" />
-    <ClInclude Include="Interface\XmlGerechtdefs.h" />
-    <ClInclude Include="Interface\XmlGerechtdefsReader.h" />
-    <ClInclude Include="Interface\XmlGerechtdefsWriter.h" />
-    <ClInclude Include="Interface\XmlGerechtdefWriter.h" />
-    <ClInclude Include="Interface\XmlGerechtReader.h" />
-    <ClInclude Include="Interface\XmlGerechtWriter.h" />
-    <ClInclude Include="Interface\XmlHandmatigitem.h" />
-    <ClInclude Include="Interface\XmlHandmatigitemReader.h" />
-    <ClInclude Include="Interface\XmlHandmatigitemWriter.h" />
-    <ClInclude Include="Interface\XmlPersonalia.h" />
-    <ClInclude Include="Interface\XmlPersonaliaReader.h" />
-    <ClInclude Include="Interface\XmlPersonaliaWriter.h" />
-    <ClInclude Include="Interface\XmlPortie.h" />
-    <ClInclude Include="Interface\XmlPortieomschrijving.h" />
-    <ClInclude Include="Interface\XmlPortieomschrijvingReader.h" />
-    <ClInclude Include="Interface\XmlPortieomschrijvingWriter.h" />
-    <ClInclude Include="Interface\XmlPortieReader.h" />
-    <ClInclude Include="Interface\XmlPortieWriter.h" />
-    <ClInclude Include="Interface\XmlPuntenper100.h" />
-    <ClInclude Include="Interface\XmlPuntenper100Reader.h" />
-    <ClInclude Include="Interface\XmlPuntenper100Writer.h" />
-    <ClInclude Include="Interface\XmlRecept.h" />
-    <ClInclude Include="Interface\XmlReceptdef.h" />
-    <ClInclude Include="Interface\XmlReceptdefReader.h" />
-    <ClInclude Include="Interface\XmlReceptdefs.h" />
-    <ClInclude Include="Interface\XmlReceptdefsReader.h" />
-    <ClInclude Include="Interface\XmlReceptdefsWriter.h" />
-    <ClInclude Include="Interface\XmlReceptdefWriter.h" />
-    <ClInclude Include="Interface\XmlReceptReader.h" />
-    <ClInclude Include="Interface\XmlReceptWriter.h" />
-    <ClInclude Include="Interface\XmlStandardlot.h" />
-    <ClInclude Include="Interface\XmlStandardlotReader.h" />
-    <ClInclude Include="Interface\XmlStandardlotWriter.h" />
-    <ClInclude Include="Interface\XmlUnit.h" />
-    <ClInclude Include="Interface\XmlUnitReader.h" />
-    <ClInclude Include="Interface\XmlUnits.h" />
-    <ClInclude Include="Interface\XmlUnitsReader.h" />
-    <ClInclude Include="Interface\XmlUnitsWriter.h" />
-    <ClInclude Include="Interface\XmlUnitWriter.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddel.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddeldef.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddeldefReader.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddeldefs.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddeldefsReader.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddeldefsWriter.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddeldefWriter.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddelheader.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddelheaderReader.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddelheaderWriter.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddelReader.h" />
-    <ClInclude Include="Interface\XmlVoedingsmiddelWriter.h" />
-    <ClInclude Include="Interface\XmlVoedingswaarde.h" />
-    <ClInclude Include="Interface\XmlVoedingswaardeReader.h" />
-    <ClInclude Include="Interface\XmlVoedingswaardeWriter.h" />
-    <ClInclude Include="Interface\XmlWeek.h" />
-    <ClInclude Include="Interface\XmlWeekReader.h" />
-    <ClInclude Include="Interface\XmlWeekWriter.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Source\XmlBonuscell.cpp" />
     <ClCompile Include="Source\XmlBonuscellReader.cpp" />
     <ClCompile Include="Source\XmlBonuscellWriter.cpp" />
@@ -162,6 +90,78 @@
     <ClCompile Include="Source\XmlWeekReader.cpp" />
     <ClCompile Include="Source\XmlWeekWriter.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Interface\Generated2019\XmlBonuscell.h" />
+    <ClInclude Include="Interface\Generated2019\XmlBonuscellReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlBonuscellWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlBonuslist.h" />
+    <ClInclude Include="Interface\Generated2019\XmlBonuslistReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlBonuslistWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlClass.h" />
+    <ClInclude Include="Interface\Generated2019\XmlDag.h" />
+    <ClInclude Include="Interface\Generated2019\XmlDagReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlDagWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerecht.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerechtdef.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerechtdefReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerechtdefs.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerechtdefsReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerechtdefsWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerechtdefWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerechtReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlGerechtWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlHandmatigitem.h" />
+    <ClInclude Include="Interface\Generated2019\XmlHandmatigitemReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlHandmatigitemWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPersonalia.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPersonaliaReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPersonaliaWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPortie.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPortieomschrijving.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPortieomschrijvingReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPortieomschrijvingWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPortieReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPortieWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPuntenper100.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPuntenper100Reader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlPuntenper100Writer.h" />
+    <ClInclude Include="Interface\Generated2019\XmlRecept.h" />
+    <ClInclude Include="Interface\Generated2019\XmlReceptdef.h" />
+    <ClInclude Include="Interface\Generated2019\XmlReceptdefReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlReceptdefs.h" />
+    <ClInclude Include="Interface\Generated2019\XmlReceptdefsReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlReceptdefsWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlReceptdefWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlReceptReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlReceptWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlStandardlot.h" />
+    <ClInclude Include="Interface\Generated2019\XmlStandardlotReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlStandardlotWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlUnit.h" />
+    <ClInclude Include="Interface\Generated2019\XmlUnitReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlUnits.h" />
+    <ClInclude Include="Interface\Generated2019\XmlUnitsReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlUnitsWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlUnitWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddel.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddeldef.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddeldefReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddeldefs.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddeldefsReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddeldefsWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddeldefWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddelheader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddelheaderReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddelheaderWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddelReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingsmiddelWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingswaarde.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingswaardeReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlVoedingswaardeWriter.h" />
+    <ClInclude Include="Interface\Generated2019\XmlWeek.h" />
+    <ClInclude Include="Interface\Generated2019\XmlWeekReader.h" />
+    <ClInclude Include="Interface\Generated2019\XmlWeekWriter.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -216,9 +216,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -235,6 +237,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>C:\Projects\VC2019\;C:\Projects\VC2019\Utilities\include\;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)Interface\Generated2019\</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>

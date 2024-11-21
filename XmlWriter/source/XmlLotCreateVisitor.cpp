@@ -1,0 +1,32 @@
+
+#include "XmlLotCreateVisitor.h"
+
+#include "XmlWriter.h"
+
+//#include <Generated2019/XmlFreelot.h>
+#include <Generated2019/XmlStandardlot.h>
+#include <Generated2019/XmlVoedingsmiddel.h>
+
+
+namespace ww2019
+{
+
+void XmlLotCreateVisitor::Visit(WW::CalculatedLot& aLot)
+{
+    auto lot = std::make_unique<XmlStandardlot>();
+    mWriter.Create(aLot, *lot);
+
+    mXmlVoedingsmiddel.Add(std::move(lot));
+}
+
+
+void XmlLotCreateVisitor::Visit(WW::FixedLot& aLot)
+{
+    auto lot = std::make_unique<XmlStandardlot>();
+    mWriter.Create(aLot, *lot);
+
+    mXmlVoedingsmiddel.Add(std::move(lot));
+}
+
+
+} // namespace ww2019
