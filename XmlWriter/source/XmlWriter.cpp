@@ -141,7 +141,7 @@ WW::Result XmlWriter::WriteUnits(const std::tstring& aFilename)
 
 WW::Result XmlWriter::WriteVoedingsmiddelDefinities(const std::tstring& aFilename)
 {
-    XmlVoedingsmiddeldefs* xmlvmdefinities = new XmlVoedingsmiddeldefs;
+    auto xmlvmdefinities = std::make_unique<XmlVoedingsmiddeldefs>();
 
     const auto& vmdefinities = mModel.GetVoedingsmiddelDefinities();
     for (size_t i = 0; i < vmdefinities.size(); ++i)
@@ -182,8 +182,6 @@ WW::Result XmlWriter::WriteVoedingsmiddelDefinities(const std::tstring& aFilenam
                                     ? XmlVoedingsmiddeldef::favoriet::yes
                                     : XmlVoedingsmiddeldef::favoriet::no);
 
-        xmlvmdefinities->Add(std::move(xmlvmdefinitie));
-
         const std::vector<std::unique_ptr<WW::Portie>>& portielist = vmdefinities[i]->GetPortieList();
         for (size_t p = 0; p < vmdefinities[i]->GetPortieList().size(); ++p) {
             auto portie = std::make_unique<XmlPortie>();
@@ -191,11 +189,12 @@ WW::Result XmlWriter::WriteVoedingsmiddelDefinities(const std::tstring& aFilenam
             portie->Seteenheden(Str::ToTString(portielist[p]->GetUnits()));
             xmlvmdefinitie->Add(std::move(portie));
         }
+
+        xmlvmdefinities->Add(std::move(xmlvmdefinitie));
     }
 
     XmlVoedingsmiddeldefsWriter writer;
     writer.Write(aFilename, *xmlvmdefinities);
-    delete xmlvmdefinities;
 
     return WW::Result::Ok;
 }
@@ -211,12 +210,13 @@ WW::Result XmlWriter::WriteRecepten(const std::tstring& aFilename)
         auto recept = std::make_unique<XmlReceptdef>();
         recept->Setnaam(recepten[i]->GetName());
         recept->Setporties(Str::ToTString(recepten[i]->GetPortions()));
-        xmlrecepten->Add(std::move(recept));
 
         XmlReceptItemCreateVisitor visitor(*this, *recept);
 
         for (size_t j = 0; j < recepten[i]->GetItems().size(); ++j)
             recepten[i]->GetItems()[j]->Accept(visitor);
+
+        xmlrecepten->Add(std::move(recept));
     }
 
     XmlReceptdefsWriter writer;

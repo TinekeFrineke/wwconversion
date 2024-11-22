@@ -398,9 +398,6 @@ WW::Result XmlReader::ReadWeek(const std::tstring& aDirectory)
             break;
     }
 
-    if (!mModel.Add(std::move(week)))
-        return WW::Result::InterpretError;
-
     const std::vector<XmlDag*> dagen(xmlweek->GetDagList());
     for (size_t i = 0; i < dagen.size(); ++i)
     {
@@ -408,6 +405,9 @@ WW::Result XmlReader::ReadWeek(const std::tstring& aDirectory)
         if (!week->Add(std::move(dag)))
             return WW::Result::InterpretError;
     }
+
+    if (!mModel.Add(std::move(week)))
+        return WW::Result::InterpretError;
 
     delete xmlweek;
 

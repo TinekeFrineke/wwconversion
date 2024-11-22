@@ -130,6 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)interface;$(SolutionDir)xmlbase\interface;$(SolutionDir)xmlwriter\interface;$(SolutionDir)xmlreader\interface;$(SolutionDir)generated2019\Interface;$(SolutionDir)Model\interface;C:\Projects\VC2019\Utilities\include;C:\Projects\VC2019\xerces280\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,6 +145,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)interface;$(SolutionDir)xmlbase\interface;$(SolutionDir)xmlwriter\interface;$(SolutionDir)xmlreader\interface;$(SolutionDir)generated2019\Interface;$(SolutionDir)Model\interface;C:\Projects\VC2019\Utilities\include;C:\Projects\VC2019\xerces280\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -137,8 +137,8 @@ bool Model::Add(std::unique_ptr<VMDefinitie> aDefinitie)
         }
     }
 
-    mVMDefinities.push_back(std::move(aDefinitie));
     Add(aDefinitie->GetCategory());
+    mVMDefinities.push_back(std::move(aDefinitie));
     return true;
 }
 
