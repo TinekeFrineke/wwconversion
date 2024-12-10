@@ -1,25 +1,23 @@
 
 #include "XmlItemCreateVisitor.h"
 
-#include <Generated2019/XmlDag.h>
-#include <Generated2019/XmlGerecht.h>
-#include <Generated2019/XmlHandmatigitem.h>
-#include <Generated2019/XmlPortie.h>
-#include <Generated2019/XmlRecept.h>
-#include <Generated2019/XmlReceptDef.h>
-#include <Generated2019/XmlVoedingsMiddel.h>
+#include "generated/XmlDag.h"
+#include "generated/XmlHandmatigitem.h"
+#include "generated/XmlPortie.h"
+#include "generated/XmlRecept.h"
+#include "generated/XmlReceptDef.h"
+#include "generated/XmlVoedingsMiddel.h"
 
-#include "model/Gerecht.h"
 #include "model/Recept.h"
 #include "model/Voedingsmiddel.h"
 
 #include "XmlWriter.h"
 
-namespace ww2019
+namespace ww2024
 {
 
 
-std::unique_ptr<XmlVoedingsmiddel> XmlItemCreateVisitor::Create(WW::Voedingsmiddel& aVoedingsmiddel)
+std::unique_ptr<XmlVoedingsmiddel> XmlItemCreateVisitor::Create(weight::Voedingsmiddel& aVoedingsmiddel)
 {
     auto voedingsmiddel = std::make_unique<XmlVoedingsmiddel>();
     mWriter.Create(aVoedingsmiddel, *voedingsmiddel);
@@ -27,7 +25,7 @@ std::unique_ptr<XmlVoedingsmiddel> XmlItemCreateVisitor::Create(WW::Voedingsmidd
 }
 
 
-std::unique_ptr<XmlRecept> XmlItemCreateVisitor::Create(WW::Recept& aRecept)
+std::unique_ptr<XmlRecept> XmlItemCreateVisitor::Create(weight::Recept& aRecept)
 {
     auto recept = std::make_unique<XmlRecept>();
     mWriter.Create(aRecept, *recept);
@@ -35,15 +33,7 @@ std::unique_ptr<XmlRecept> XmlItemCreateVisitor::Create(WW::Recept& aRecept)
 }
 
 
-std::unique_ptr<XmlGerecht> XmlItemCreateVisitor::Create(WW::Gerecht& aGerecht)
-{
-    auto gerecht = std::make_unique<XmlGerecht>();
-    mWriter.Create(aGerecht, *gerecht);
-    return gerecht;
-}
-
-
-std::unique_ptr<XmlHandmatigitem> XmlItemCreateVisitor::Create(WW::ManualItem& anItem)
+std::unique_ptr<XmlHandmatigitem> XmlItemCreateVisitor::Create(weight::ManualItem& anItem)
 {
     auto item = std::make_unique<XmlHandmatigitem>();
     mWriter.Create(anItem, *item);
@@ -51,52 +41,40 @@ std::unique_ptr<XmlHandmatigitem> XmlItemCreateVisitor::Create(WW::ManualItem& a
 }
 
 
-void XmlDagItemCreateVisitor::Visit(WW::Recept& aRecept)
+void XmlDagItemCreateVisitor::Visit(weight::Recept& aRecept)
 {
     mDag.Add(Create(aRecept));
 }
 
 
-void XmlDagItemCreateVisitor::Visit(WW::Gerecht& aGerecht)
-{
-    mDag.Add(Create(aGerecht));
-}
-
-
-void XmlDagItemCreateVisitor::Visit(WW::Voedingsmiddel& aVoedingsmiddel)
+void XmlDagItemCreateVisitor::Visit(weight::Voedingsmiddel& aVoedingsmiddel)
 {
     mDag.Add(Create(aVoedingsmiddel));
 }
 
 
-void XmlDagItemCreateVisitor::Visit(WW::ManualItem& anItem)
+void XmlDagItemCreateVisitor::Visit(weight::ManualItem& anItem)
 {
     mDag.Add(Create(anItem));
 }
 
 
-void XmlReceptItemCreateVisitor::Visit(WW::Recept& aRecept)
+void XmlReceptItemCreateVisitor::Visit(weight::Recept& aRecept)
 {
     mReceptDef.Add(Create(aRecept));
 }
 
 
-void XmlReceptItemCreateVisitor::Visit(WW::Gerecht& aGerecht)
-{
-    mReceptDef.Add(Create(aGerecht));
-}
-
-
-void XmlReceptItemCreateVisitor::Visit(WW::Voedingsmiddel& aVoedingsmiddel)
+void XmlReceptItemCreateVisitor::Visit(weight::Voedingsmiddel& aVoedingsmiddel)
 {
     mReceptDef.Add(Create(aVoedingsmiddel));
 }
 
 
-void XmlReceptItemCreateVisitor::Visit(WW::ManualItem& anItem)
+void XmlReceptItemCreateVisitor::Visit(weight::ManualItem& anItem)
 {
     mReceptDef.Add(Create(anItem));
 }
 
 
-} // namespace WW
+} // namespace weight

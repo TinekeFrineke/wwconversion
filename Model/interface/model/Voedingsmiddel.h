@@ -1,12 +1,10 @@
 #pragma once
 
-#include "CategorieNaam.h"
 #include "Item.h"
 #include "Lot.h"
 #include "Portie.h"
-#include "Unit.h"
 
-namespace WW
+namespace weight
 {
 
 
@@ -15,37 +13,33 @@ class VMDefinitie;
 class Voedingsmiddel: public Item
 {
 public:
-    Voedingsmiddel(const std::tstring& aName,
-                   Lot* aLot,
-                   const Unit& aUnit);
-    Voedingsmiddel(Lot* aLot,
-                   const VMDefinitie& aDefinitie);
-    virtual               ~Voedingsmiddel();
+    Voedingsmiddel(const std::tstring& aName, std::unique_ptr<Lot> aLot, const std::wstring& aUnit);
+    Voedingsmiddel(std::unique_ptr<Lot> aLot, const VMDefinitie& aDefinitie);
+    ~Voedingsmiddel() override;
 
-    virtual std::tstring  GetName() const { return mName; }
-    virtual double        GetPoints() const;
+    virtual std::wstring GetName() const { return mName; }
+    virtual double GetPoints() const;
 
-    virtual void          Accept(ItemVisitor& aVisitor) override;
+    virtual void Accept(ItemVisitor& aVisitor) override;
 
-    CategorieNaam         GetCategory() const { return mCategory; }
+    std::wstring GetCategory() const { return mCategory; }
     Lot& GetLot() { return *mLot; }
     const Lot& GetConstLot() const { return *mLot; }
 
-    void                  SetLot(std::unique_ptr<Lot> aLot);
+    void SetLot(std::unique_ptr<Lot> aLot);
+    void SetUnit(const std::wstring& aUnit) { mUnit = aUnit; }
 
-    void                  SetUnit(const Unit& aUnit) { mUnit = aUnit; }
+    std::wstring GetUnit() const { return mUnit; }
 
-    const Unit& GetUnit() const { return mUnit; }
-
-    void                  SetName(const std::tstring& aName) { mName = aName; }
-    void                  SetCategory(const CategorieNaam& aCategory) { mCategory = aCategory; }
+    void SetName(const std::wstring& aName) { mName = aName; }
+    void SetCategory(const std::wstring& aCategory) { mCategory = aCategory; }
 
 private:
-    Unit                  mUnit;
-    std::tstring          mName;
-    CategorieNaam         mCategory;
+    std::wstring mUnit;
+    std::wstring mName;
+    std::wstring mCategory;
     std::unique_ptr<Lot> mLot;
 };
 
 
-}
+} // namespace weight

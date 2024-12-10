@@ -4,7 +4,7 @@
 
 #include "model/Day.h"
 #include "model/Portie.h"
-#include "model/WWModel.h"
+#include "model/Model.h"
 
 #include "xmlbase/XmlBase.h"
 
@@ -12,7 +12,6 @@ namespace ww_1_2
 {
 class XmlBonuscell;
 class XmlDag;
-class XmlGerecht;
 class XmlHandmatigitem;
 class XmlLot;
 class XmlModel;
@@ -21,10 +20,9 @@ class XmlRecept;
 class XmlVoedingsmiddel;
 }
 
-namespace WW
+namespace weight
 {
 
-class Gerecht;
 class ManualItem;
 class Recept;
 class Voedingsmiddel;
@@ -37,32 +35,31 @@ namespace ww_1_2
 class XmlReader
 {
 public:
-    XmlReader(WW::Model& aModel);
+    XmlReader(weight::Model& aModel);
 
-    WW::Result                      Read(const std::tstring& aDirectory);
+    weight::Result                      Read(const std::tstring& aDirectory);
 
-    WW::Result                      ReadPersonalia(const std::tstring& aDirectory);
-    WW::Result                      ReadUnits(const std::tstring& aDirectory);
-    WW::Result                      ReadVoedingsmiddelDefinities(const std::tstring& aDirectory);
-    WW::Result                      ReadRecepten(const std::tstring& aDirectory);
-    WW::Result                      ReadGerechten(const std::tstring& aDirectory);
-    WW::Result                      ReadWeeks(const std::tstring& aDirectory);
-    WW::Result                      ReadBonusCells(const std::tstring& aDirectory);
+    weight::Result                      ReadPersonalia(const std::tstring& aDirectory);
+    weight::Result                      ReadUnits(const std::tstring& aDirectory);
+    weight::Result                      ReadVoedingsmiddelDefinities(const std::tstring& aDirectory);
+    weight::Result                      ReadRecepten(const std::tstring& aDirectory);
+    weight::Result                      ReadGerechten(const std::tstring& aDirectory);
+    weight::Result                      ReadWeeks(const std::tstring& aDirectory);
+    weight::Result                      ReadBonusCells(const std::tstring& aDirectory);
 
 private:
     XmlReader& operator=(const XmlReader&) = delete;
     XmlReader(const XmlReader&) = delete;
 
-    WW::Result                      ReadWeek(const std::tstring& aDirectory);
+    weight::Result                      ReadWeek(const std::tstring& aDirectory);
 
-    WW::Portie                  Create(const ww_1_2::XmlPortie& aPortie);
-    std::unique_ptr<WW::Voedingsmiddel> Create(const ww_1_2::XmlVoedingsmiddel& aVoedingsmiddel);
-    std::unique_ptr<WW::Recept> Create(const ww_1_2::XmlRecept& aRecept);
-    std::unique_ptr<WW::Gerecht> Create(const ww_1_2::XmlGerecht& aGerecht);
-    std::unique_ptr<WW::ManualItem> Create(const ww_1_2::XmlHandmatigitem& aGerecht);
-    std::unique_ptr<WW::Day> Create(const ww_1_2::XmlDag& aDag);
-    WW::Bonus                   Create(const ww_1_2::XmlBonuscell& aCell);
-    WW::Model& mModel;
+    weight::Portie                  Create(const ww_1_2::XmlPortie& aPortie);
+    std::unique_ptr<weight::Voedingsmiddel> Create(const ww_1_2::XmlVoedingsmiddel& aVoedingsmiddel);
+    std::unique_ptr<weight::Recept> Create(const ww_1_2::XmlRecept& aRecept);
+    std::unique_ptr<weight::ManualItem> Create(const ww_1_2::XmlHandmatigitem& aGerecht);
+    std::unique_ptr<weight::Day> Create(const ww_1_2::XmlDag& aDag);
+    weight::Bonus                   Create(const ww_1_2::XmlBonuscell& aCell);
+    weight::Model& mModel;
 };
 
 

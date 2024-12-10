@@ -5,19 +5,18 @@
 #include "Utilities/StrUtils.h"
 
 
-namespace WW
+namespace weight
 {
 
 
 class Naam
 {
 public:
-    Naam(const std::tstring& aName)
-        : mName(aName) {}
-    std::tstring                  Get() const { return mName; }
+    explicit Naam(const std::wstring& aName) : mName(aName) {}
+    std::wstring Get() const { return mName; }
 
 private:
-    std::tstring                  mName;
+    std::wstring mName;
 };
 
 
@@ -27,4 +26,4 @@ inline bool operator==(const Naam& aName1, const Naam& aName2)
 }
 
 
-} // namespace WW
+} // namespace weight

@@ -40,8 +40,8 @@
 #include <Generated/XmlWeekReader.h>
 
 #include "model/BonusPointsMap.h"
-#include "model/Gerecht.h"
 #include "model/ManualItem.h"
+#include "model/NutritionalValue.h"
 #include "model/Personalia.h"
 #include "model/Recept.h"
 #include "model/ReceptDefinitie.h"
@@ -49,39 +49,38 @@
 #include "model/VoedingsmiddelDefinitie.h"
 #include "model/Week.h"
 #include "model/WWDefinitions.h"
-//#include "XmlVMCreateVisitor.h"
 
 namespace ww_1_2
 {
 
 
-XmlReader::XmlReader(WW::Model& aModel)
+XmlReader::XmlReader(weight::Model& aModel)
     : mModel(aModel)
 {
 }
 
 
-WW::Result XmlReader::Read(const std::tstring& aDirectory)
+weight::Result XmlReader::Read(const std::tstring& aDirectory)
 {
-    WW::Result result = ReadPersonalia(aDirectory + _T("\\personalia.xml"));
-    if (result == WW::Result::Ok)
+    weight::Result result = ReadPersonalia(aDirectory + _T("\\personalia.xml"));
+    if (result == weight::Result::Ok)
         result = ReadVoedingsmiddelDefinities(aDirectory + _T("\\voedingsmiddeldefinities.xml"));
-    if (result == WW::Result::Ok)
+    if (result == weight::Result::Ok)
         result = ReadUnits(aDirectory + _T("\\units.xml"));
-    if (result == WW::Result::Ok)
+    if (result == weight::Result::Ok)
         result = ReadRecepten(aDirectory + _T("\\recepten.xml"));
-    if (result == WW::Result::Ok)
+    if (result == weight::Result::Ok)
         result = ReadGerechten(aDirectory + _T("\\restaurantgerechten.xml"));
-    if (result == WW::Result::Ok)
+    if (result == weight::Result::Ok)
         result = ReadWeeks(aDirectory);
-    if (result == WW::Result::Ok)
+    if (result == weight::Result::Ok)
         result = ReadBonusCells(aDirectory);
 
     return result;
 }
 
 
-WW::Result XmlReader::ReadPersonalia(const std::tstring& aDirectory)
+weight::Result XmlReader::ReadPersonalia(const std::tstring& aDirectory)
 {
     XmlPersonaliaReader reader;
     XmlPersonalia* xmlpersonalia;
@@ -89,51 +88,48 @@ WW::Result XmlReader::ReadPersonalia(const std::tstring& aDirectory)
     {
         case XmlPersonaliaReader::RESULT_Ok:
             if (xmlpersonalia == nullptr)
-                return WW::Result::Ok;
+                return weight::Result::Ok;
             break;
         case XmlPersonaliaReader::RESULT_FileNotFound:
-            return WW::Result::FileNotFound;
+            return weight::Result::FileNotFound;
         case XmlPersonaliaReader::RESULT_ErrorInFilename:
-            return WW::Result::ErrorInFilename;
+            return weight::Result::ErrorInFilename;
         case XmlPersonaliaReader::RESULT_FileOpenError:
-            return WW::Result::FileOpenError;
+            return weight::Result::FileOpenError;
         case XmlPersonaliaReader::RESULT_ErrorInFile:
-            return WW::Result::ErrorInFile;
+            return weight::Result::ErrorInFile;
         case XmlPersonaliaReader::RESULT_ParserError:
-            return WW::Result::ParserError;
+            return weight::Result::ParserError;
         case XmlPersonaliaReader::RESULT_InterpretError:
         case XmlPersonaliaReader::RESULT_WriteError:
         default:
-            return WW::Result::InterpretError;
+            return weight::Result::InterpretError;
             break;
     }
 
-    auto personalia = std::make_unique<WW::Personalia>(xmlpersonalia->Getgebruikersnaam());
+    auto personalia = std::make_unique<weight::Personalia>(xmlpersonalia->Getgebruikersnaam());
     personalia->SetName(xmlpersonalia->Getnaam());
     Utils::Date date(Utils::Date::Today());
     if (Utils::ToDate(xmlpersonalia->Getgeboren(), date))
         personalia->SetDateOfBirth(date);
     personalia->SetGeslacht(xmlpersonalia->Getgeslacht() == XmlPersonalia::geslacht_Mannelijk
-                            ? WW::Personalia::GESLACHT::Mannelijk : WW::Personalia::GESLACHT::Vrouwelijk);
+                            ? weight::Personalia::GESLACHT::Mannelijk : weight::Personalia::GESLACHT::Vrouwelijk);
     switch (xmlpersonalia->Getwerk())
     {
         case XmlPersonalia::werk_Zittend:
-            personalia->SetTypeOfWork(WW::Personalia::WERKTYPE::Zittend);
+            personalia->SetTypeOfWork(weight::Personalia::WERKTYPE::Zittend);
             break;
         case XmlPersonalia::werk_Staand:
-            personalia->SetTypeOfWork(WW::Personalia::WERKTYPE::Staand);
+            personalia->SetTypeOfWork(weight::Personalia::WERKTYPE::Staand);
             break;
         case XmlPersonalia::werk_Lopend:
-            personalia->SetTypeOfWork(WW::Personalia::WERKTYPE::Lopend);
+            personalia->SetTypeOfWork(weight::Personalia::WERKTYPE::Lopend);
             break;
         case XmlPersonalia::werk_Zwaar:
-            personalia->SetTypeOfWork(WW::Personalia::WERKTYPE::Zwaar);
+            personalia->SetTypeOfWork(weight::Personalia::WERKTYPE::Zwaar);
             break;
     }
 
-    personalia->SetFPPuntenTotaal(_ttoi(xmlpersonalia->Getpunten().c_str()));
-    personalia->SetPPPuntenTotaal(_ttoi(xmlpersonalia->Getpppunten().c_str()));
-    personalia->SetPPWeekPuntenTotaal(_ttoi(xmlpersonalia->Getppweekpunten().c_str()));
     personalia->SetKCPuntenTotaal(_ttoi(xmlpersonalia->Getkcpunten().c_str()));
     personalia->SetKCWeekPuntenTotaal(_ttoi(xmlpersonalia->Getkcweekpunten().c_str()));
     personalia->SetCHPuntenTotaal(Str::ToDouble(xmlpersonalia->Getchpunten().c_str()));
@@ -146,24 +142,24 @@ WW::Result XmlReader::ReadPersonalia(const std::tstring& aDirectory)
     switch (xmlpersonalia->Getstrategie())
     {
         case XmlPersonalia::strategie_KCal:
-            personalia->SetStrategy(WW::STRATEGY_TYPE::KCal);
+            personalia->SetStrategy(weight::STRATEGY_TYPE::KCal);
             break;
         case XmlPersonalia::strategie_CarboHydrates:
-            personalia->SetStrategy(WW::STRATEGY_TYPE::CarboHydrates);
+            personalia->SetStrategy(weight::STRATEGY_TYPE::CarboHydrates);
             break;
         default:
-            return WW::Result::InterpretError;
+            return weight::Result::InterpretError;
     }
 
     mModel.Add(std::move(personalia));
 
     delete xmlpersonalia;
 
-    return WW::Result::Ok;
+    return weight::Result::Ok;
 
 }
 
-WW::Result XmlReader::ReadUnits(const std::tstring& aDirectory)
+weight::Result XmlReader::ReadUnits(const std::tstring& aDirectory)
 {
     XmlUnitsReader reader;
     XmlUnits* xmlunits;
@@ -171,36 +167,36 @@ WW::Result XmlReader::ReadUnits(const std::tstring& aDirectory)
     {
         case XmlUnitsReader::RESULT_Ok:
             if (xmlunits == nullptr)
-                return WW::Result::Ok;
+                return weight::Result::Ok;
             break;
         case XmlUnitsReader::RESULT_FileNotFound:
-            return WW::Result::FileNotFound;
+            return weight::Result::FileNotFound;
         case XmlUnitsReader::RESULT_ErrorInFilename:
-            return WW::Result::ErrorInFilename;
+            return weight::Result::ErrorInFilename;
         case XmlUnitsReader::RESULT_FileOpenError:
-            return WW::Result::FileOpenError;
+            return weight::Result::FileOpenError;
         case XmlUnitsReader::RESULT_ErrorInFile:
-            return WW::Result::ErrorInFile;
+            return weight::Result::ErrorInFile;
         case XmlUnitsReader::RESULT_ParserError:
-            return WW::Result::ParserError;
+            return weight::Result::ParserError;
         case XmlUnitsReader::RESULT_InterpretError:
         case XmlUnitsReader::RESULT_WriteError:
         default:
-            return WW::Result::InterpretError;
+            return weight::Result::InterpretError;
             break;
     }
 
     const std::vector<XmlUnit*>& units(xmlunits->GetUnitList());
     for (size_t i = 0; i < units.size(); ++i)
-        mModel.Add(WW::Unit(mModel, units[i]->Getnaam()));
+        mModel.AddUnit(units[i]->Getnaam());
 
     delete xmlunits;
 
-    return WW::Result::Ok;
+    return weight::Result::Ok;
 }
 
 
-WW::Result XmlReader::ReadVoedingsmiddelDefinities(const std::tstring& aDirectory)
+weight::Result XmlReader::ReadVoedingsmiddelDefinities(const std::tstring& aDirectory)
 {
     XmlVoedingsmiddeldefsReader reader;
     XmlVoedingsmiddeldefs* xmlvoedingsmiddeldefs;
@@ -208,85 +204,70 @@ WW::Result XmlReader::ReadVoedingsmiddelDefinities(const std::tstring& aDirector
     {
         case XmlVoedingsmiddeldefsReader::RESULT_Ok:
             if (xmlvoedingsmiddeldefs == nullptr)
-                return WW::Result::Ok;
+                return weight::Result::Ok;
             break;
         case XmlVoedingsmiddeldefsReader::RESULT_FileNotFound:
-            return WW::Result::FileNotFound;
+            return weight::Result::FileNotFound;
         case XmlVoedingsmiddeldefsReader::RESULT_ErrorInFilename:
-            return WW::Result::ErrorInFilename;
+            return weight::Result::ErrorInFilename;
         case XmlVoedingsmiddeldefsReader::RESULT_FileOpenError:
-            return WW::Result::FileOpenError;
+            return weight::Result::FileOpenError;
         case XmlVoedingsmiddeldefsReader::RESULT_ErrorInFile:
-            return WW::Result::ErrorInFile;
+            return weight::Result::ErrorInFile;
         case XmlVoedingsmiddeldefsReader::RESULT_ParserError:
-            return WW::Result::ParserError;
+            return weight::Result::ParserError;
         case XmlVoedingsmiddeldefsReader::RESULT_InterpretError:
         case XmlVoedingsmiddeldefsReader::RESULT_WriteError:
         default:
-            return WW::Result::InterpretError;
+            return weight::Result::InterpretError;
             break;
     }
 
     const std::vector<XmlVoedingsmiddeldef*>& vmlist = xmlvoedingsmiddeldefs->GetVoedingsmiddeldefList();
-    for (size_t i = 0; i < vmlist.size(); ++i)
+    for (auto vm : vmlist)
     {
+        if (vm->GetVoedingswaarde() == nullptr)
+            // This was a formerly fixed points food definition
+            continue;
+
+        auto nutritionalValue = std::make_unique<weight::NutritionalValue>(mModel.GetCalculator());
+        nutritionalValue->SetKCalPer100Units(Str::ToDouble(vm->GetVoedingswaarde()->Getkcalper100().c_str()));
+        nutritionalValue->SetFatPer100Units(Str::ToDouble(vm->GetVoedingswaarde()->Getvetper100().c_str()));
+        nutritionalValue->SetCarbohydratesPer100Units(Str::ToDouble(vm->GetVoedingswaarde()->Getkoolhydratenper100().c_str()));
+        nutritionalValue->SetProteiPer100Units(Str::ToDouble(vm->GetVoedingswaarde()->Geteiwitper100().c_str()));
+        nutritionalValue->SetFibersPer100Units(Str::ToDouble(vm->GetVoedingswaarde()->Getvezelsper100().c_str()));
+
         // TF_TODO: Improve!!!
-        WW::VMDefBase* base = nullptr;
+        weight::VMDefinitie* definitie = new weight::VMDefinitie(mModel.GetCalculator(),
+                                                                 vm->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getnaam(),
+                                                                 vm->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getunit(),
+                                                                 std::move(nutritionalValue));
 
-        if (vmlist[i]->GetVoedingswaarde() != nullptr)
+        if (!vm->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getcategorie().empty())
+            definitie->SetCategory(vm->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getcategorie());
+        if (!vm->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getmerk().empty())
+            definitie->SetMerk(vm->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getmerk());
+        definitie->SetFavourite(vm->Getfavoriet() == XmlVoedingsmiddeldef::favoriet_true);
+
+        const std::vector<XmlPortie*>& portielist = vm->GetPortieList();
+        for (auto xmlportie : portielist)
         {
-            WW::CalculatedVMDef* cdefinitie = new WW::CalculatedVMDef(mModel.GetCalculator());
-            cdefinitie->SetKCalPer100Units(Str::ToDouble(vmlist[i]->GetVoedingswaarde()->Getkcalper100().c_str()));
-            cdefinitie->SetVetPer100Units(Str::ToDouble(vmlist[i]->GetVoedingswaarde()->Getvetper100().c_str()));
-            cdefinitie->SetKoolhydratenPer100Units(Str::ToDouble(vmlist[i]->GetVoedingswaarde()->Getkoolhydratenper100().c_str()));
-            cdefinitie->SetEiwitPer100Units(Str::ToDouble(vmlist[i]->GetVoedingswaarde()->Geteiwitper100().c_str()));
-            cdefinitie->SetVezelsPer100Units(Str::ToDouble(vmlist[i]->GetVoedingswaarde()->Getvezelsper100().c_str()));
-            base = cdefinitie;
-        }
-        else if (vmlist[i]->GetPuntenper100() != nullptr)
-        {
-            WW::FixedVMDef* fdefinitie = new WW::FixedVMDef;
-            fdefinitie->SetPointsPer100Units(Str::ToDouble(vmlist[i]->GetPuntenper100()->Getpunten()));
-            base = fdefinitie;
-        }
-        else
-        {
-            assert(false);
-            return WW::Result::InterpretError;
-        }
-
-        WW::VMDefinitie* definitie = new WW::VMDefinitie(mModel.GetCalculator(),
-                                                         vmlist[i]->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getnaam(),
-                                                         WW::Unit(mModel, vmlist[i]->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getunit()),
-                                                         base);
-
-
-        if (!vmlist[i]->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getcategorie().empty())
-            definitie->SetCategory(WW::CategorieNaam(mModel, vmlist[i]->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getcategorie()));
-        if (!vmlist[i]->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getmerk().empty())
-            definitie->SetMerk(WW::MerkNaam(mModel, vmlist[i]->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getmerk()));
-        definitie->SetFavourite(vmlist[i]->Getfavoriet() == XmlVoedingsmiddeldef::favoriet_true);
-
-        const std::vector<XmlPortie*>& portielist = vmlist[i]->GetPortieList();
-        for (size_t p = 0; p < portielist.size(); ++p)
-        {
-            auto portie = std::make_unique<WW::Portie>(WW::PortieNaam(mModel, portielist[p]->Getnaam()));
-            portie->SetUnits(Str::ToDouble(portielist[p]->Geteenheden().c_str()));
-            mModel.Add(portie->GetName());
+            auto portie = std::make_unique<weight::Portie>(xmlportie->Getnaam());
+            portie->SetUnits(Str::ToDouble(xmlportie->Geteenheden().c_str()));
             definitie->AddPortie(std::move(portie));
         }
 
-        auto uni = std::unique_ptr<WW::VMDefinitie>(definitie);
+        auto uni = std::unique_ptr<weight::VMDefinitie>(definitie);
         mModel.Add(std::move(uni));
     }
 
     delete xmlvoedingsmiddeldefs;
 
-    return WW::Result::Ok;
+    return weight::Result::Ok;
 }
 
 
-WW::Result XmlReader::ReadRecepten(const std::tstring& aDirectory)
+weight::Result XmlReader::ReadRecepten(const std::tstring& aDirectory)
 {
     XmlReceptdefsReader reader;
     XmlReceptdefs* xmlreceptdefs;
@@ -294,29 +275,29 @@ WW::Result XmlReader::ReadRecepten(const std::tstring& aDirectory)
     {
         case XmlReceptdefsReader::RESULT_Ok:
             if (xmlreceptdefs == nullptr)
-                return WW::Result::Ok;
+                return weight::Result::Ok;
             break;
         case XmlReceptdefsReader::RESULT_FileNotFound:
-            return WW::Result::FileNotFound;
+            return weight::Result::FileNotFound;
         case XmlReceptdefsReader::RESULT_ErrorInFilename:
-            return WW::Result::ErrorInFilename;
+            return weight::Result::ErrorInFilename;
         case XmlReceptdefsReader::RESULT_FileOpenError:
-            return WW::Result::FileOpenError;
+            return weight::Result::FileOpenError;
         case XmlReceptdefsReader::RESULT_ErrorInFile:
-            return WW::Result::ErrorInFile;
+            return weight::Result::ErrorInFile;
         case XmlReceptdefsReader::RESULT_ParserError:
-            return WW::Result::ParserError;
+            return weight::Result::ParserError;
         case XmlReceptdefsReader::RESULT_InterpretError:
         case XmlReceptdefsReader::RESULT_WriteError:
         default:
-            return WW::Result::InterpretError;
+            return weight::Result::InterpretError;
             break;
     }
 
     const std::vector<XmlReceptdef*> receptlist = xmlreceptdefs->GetReceptdefList();
     for (size_t i = 0; i < receptlist.size(); ++i)
     {
-        auto receptdef = std::make_unique<WW::ReceptDefinitie>(receptlist[i]->Getnaam());
+        auto receptdef = std::make_unique<weight::ReceptDefinitie>(receptlist[i]->Getnaam());
         receptdef->SetPortions(Str::ToInt(receptlist[i]->Getporties()));
         const std::vector<XmlVoedingsmiddel*>& voedingsmiddellist(receptlist[i]->GetVoedingsmiddelList());
         for (size_t j = 0; j < voedingsmiddellist.size(); ++j)
@@ -331,11 +312,11 @@ WW::Result XmlReader::ReadRecepten(const std::tstring& aDirectory)
 
     delete xmlreceptdefs;
 
-    return WW::Result::Ok;
+    return weight::Result::Ok;
 }
 
 
-WW::Result XmlReader::ReadWeeks(const std::tstring& aDirectory)
+weight::Result XmlReader::ReadWeeks(const std::tstring& aDirectory)
 {
     std::tstring filename(aDirectory + _T("\\week*.xml"));
     //TCHAR filemask[_MAX_PATH];
@@ -350,11 +331,11 @@ WW::Result XmlReader::ReadWeeks(const std::tstring& aDirectory)
 
     FindClose(hFind);
 
-    return WW::Result::Ok;
+    return weight::Result::Ok;
 }
 
 
-WW::Result XmlReader::ReadWeek(const std::tstring& aDirectory)
+weight::Result XmlReader::ReadWeek(const std::tstring& aDirectory)
 {
     XmlWeekReader reader;
     XmlWeek* xmlweek;
@@ -362,27 +343,27 @@ WW::Result XmlReader::ReadWeek(const std::tstring& aDirectory)
     {
         case XmlWeekReader::RESULT_Ok:
             if (xmlweek == nullptr)
-                return WW::Result::Ok;
+                return weight::Result::Ok;
             break;
         case XmlWeekReader::RESULT_FileNotFound:
-            return WW::Result::FileNotFound;
+            return weight::Result::FileNotFound;
         case XmlWeekReader::RESULT_ErrorInFilename:
-            return WW::Result::ErrorInFilename;
+            return weight::Result::ErrorInFilename;
         case XmlWeekReader::RESULT_FileOpenError:
-            return WW::Result::FileOpenError;
+            return weight::Result::FileOpenError;
         case XmlWeekReader::RESULT_ErrorInFile:
-            return WW::Result::ErrorInFile;
+            return weight::Result::ErrorInFile;
         case XmlWeekReader::RESULT_ParserError:
-            return WW::Result::ParserError;
+            return weight::Result::ParserError;
         case XmlWeekReader::RESULT_InterpretError:
         case XmlWeekReader::RESULT_WriteError:
         default:
-            return WW::Result::InterpretError;
+            return weight::Result::InterpretError;
             break;
     }
 
-    auto week = std::make_unique<WW::Week>(Utils::ToDate(xmlweek->Getbegindatum()),
-                                           Utils::ToDate(xmlweek->Geteinddatum()));
+    auto week = std::make_unique<weight::Week>(Utils::ToDate(xmlweek->Getbegindatum()),
+                                               Utils::ToDate(xmlweek->Geteinddatum()));
     week->SetPoints(Str::ToDouble(xmlweek->Getpunten()));
     week->SetSaveablePoints(Str::ToDouble(xmlweek->Getweekpunten()));
     week->SetStartWeight(Str::ToDouble(xmlweek->Getstartweight()));
@@ -391,10 +372,10 @@ WW::Result XmlReader::ReadWeek(const std::tstring& aDirectory)
     {
         case XmlWeek::strategie_FlexiPoints:
         case XmlWeek::strategie_KCal:
-            week->SetStrategy(WW::STRATEGY_TYPE::KCal, mModel);
+            week->SetStrategy(weight::STRATEGY_TYPE::KCal, mModel);
             break;
         case XmlWeek::strategie_CarboHydrates:
-            week->SetStrategy(WW::STRATEGY_TYPE::CarboHydrates, mModel);
+            week->SetStrategy(weight::STRATEGY_TYPE::CarboHydrates, mModel);
             break;
     }
 
@@ -403,27 +384,27 @@ WW::Result XmlReader::ReadWeek(const std::tstring& aDirectory)
     {
         auto dag = Create(*dagen[i]);
         if (!week->Add(std::move(dag)))
-            return WW::Result::InterpretError;
+            return weight::Result::InterpretError;
     }
 
     if (!mModel.Add(std::move(week)))
-        return WW::Result::InterpretError;
+        return weight::Result::InterpretError;
 
     delete xmlweek;
 
-    return WW::Result::Ok;
+    return weight::Result::Ok;
 }
 
 
-WW::Result XmlReader::ReadGerechten(const std::tstring& aDirectory)
+weight::Result XmlReader::ReadGerechten(const std::tstring& aDirectory)
 {
     (void)aDirectory;
 
-    return WW::Result::Ok;
+    return weight::Result::Ok;
 }
 
 
-WW::Result XmlReader::ReadBonusCells(const std::tstring& aDirectory)
+weight::Result XmlReader::ReadBonusCells(const std::tstring& aDirectory)
 {
     XmlBonuslistReader reader;
     XmlBonuslist* xmlbonuslist;
@@ -432,49 +413,49 @@ WW::Result XmlReader::ReadBonusCells(const std::tstring& aDirectory)
     {
         case XmlWeekReader::RESULT_Ok:
             if (xmlbonuslist == nullptr)
-                return WW::Result::Ok;
+                return weight::Result::Ok;
             break;
         case XmlWeekReader::RESULT_FileNotFound:
             delete xmlbonuslist;
-            return WW::Result::FileNotFound;
+            return weight::Result::FileNotFound;
         case XmlWeekReader::RESULT_ErrorInFilename:
             delete xmlbonuslist;
-            return WW::Result::ErrorInFilename;
+            return weight::Result::ErrorInFilename;
         case XmlWeekReader::RESULT_FileOpenError:
             delete xmlbonuslist;
-            return WW::Result::FileOpenError;
+            return weight::Result::FileOpenError;
         case XmlWeekReader::RESULT_ErrorInFile:
             delete xmlbonuslist;
-            return WW::Result::ErrorInFile;
+            return weight::Result::ErrorInFile;
         case XmlWeekReader::RESULT_ParserError:
             delete xmlbonuslist;
-            return WW::Result::ParserError;
+            return weight::Result::ParserError;
         case XmlWeekReader::RESULT_InterpretError:
         case XmlWeekReader::RESULT_WriteError:
         default:
             delete xmlbonuslist;
-            return WW::Result::InterpretError;
+            return weight::Result::InterpretError;
             break;
     }
 
     for (size_t i = 0; i < xmlbonuslist->GetBonuscellList().size(); ++i)
     {
         XmlBonuscell* cell = xmlbonuslist->GetBonuscellList()[i];
-        WW::BonusPointsMap::MOVEMENT_INTENSITY intensity = WW::BonusPointsMap::MI_High;
+        weight::BonusPointsMap::MOVEMENT_INTENSITY intensity = weight::BonusPointsMap::MI_High;
         switch (cell->Getintensiteit())
         {
             case XmlBonuscell::intensiteit_hoog:
-                intensity = WW::BonusPointsMap::MI_High;
+                intensity = weight::BonusPointsMap::MI_High;
                 break;
             case XmlBonuscell::intensiteit_middel:
-                intensity = WW::BonusPointsMap::MI_Medium;
+                intensity = weight::BonusPointsMap::MI_Medium;
                 break;
             case XmlBonuscell::intensiteit_laag:
-                intensity = WW::BonusPointsMap::MI_Low;
+                intensity = weight::BonusPointsMap::MI_Low;
                 break;
             default:
                 delete xmlbonuslist;
-                return WW::Result::InterpretError;
+                return weight::Result::InterpretError;
         }
 
         mModel.GetBonusPointsMap()[intensity][cell->Getgewicht()][(cell->Getminuten())] = cell->Getpunten();
@@ -482,76 +463,59 @@ WW::Result XmlReader::ReadBonusCells(const std::tstring& aDirectory)
 
     //mModel.GetBonusPointsMap().Debug();
     delete xmlbonuslist;
-    return WW::Result::Ok;
+    return weight::Result::Ok;
 }
 
 
-WW::Portie XmlReader::Create(const XmlPortie& aPortie)
+weight::Portie XmlReader::Create(const XmlPortie& aPortie)
 {
-    WW::Portie portie(WW::PortieNaam(mModel, aPortie.Getnaam()));
+    weight::Portie portie(aPortie.Getnaam());
     portie.SetUnits(Str::ToDouble(aPortie.Geteenheden()));
 
     return portie;
 }
 
 
-std::unique_ptr<WW::Voedingsmiddel> XmlReader::Create(const XmlVoedingsmiddel& aVoedingsmiddel)
+std::unique_ptr<weight::Voedingsmiddel> XmlReader::Create(const XmlVoedingsmiddel& aVoedingsmiddel)
 {
-    WW::Lot* lot = nullptr;
+    std::unique_ptr<weight::PortionedLot> lot;
+
     if (aVoedingsmiddel.GetStandardlot() != nullptr)
     {
         const XmlStandardlot* xmllot = aVoedingsmiddel.GetStandardlot();
-        if (xmllot->GetVoedingswaarde() != nullptr)
-        {
-            WW::CalculatedLot* plot = new WW::CalculatedLot(mModel.GetCalculator(), Create(xmllot->GetPortie()));
-            plot->SetNumberOfPortions(Str::ToDouble(xmllot->Gethoeveelheid()));
-            plot->SetKCalPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Getkcalper100()));
-            plot->SetVetPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Getvetper100()));
-            plot->SetKoolhydratenPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Getkoolhydratenper100().c_str()));
-            plot->SetEiwitPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Geteiwitper100().c_str()));
-            plot->SetVezelsPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Getvezelsper100().c_str()));
-            lot = plot;
-        }
-        else if (xmllot->GetPuntenper100() != nullptr)
-        {
-            WW::FixedLot* plot = new WW::FixedLot(Create(xmllot->GetPortie()));
-            plot->SetNumberOfPortions(Str::ToDouble(xmllot->Gethoeveelheid()));
-            plot->SetPointsPer100Units(Str::ToDouble(xmllot->GetPuntenper100()->Getpunten()));
-            lot = plot;
-        }
+        const auto voedingswaarde = xmllot->GetVoedingswaarde();
+        if (voedingswaarde == nullptr)
+            // Obsolete food type, don't convert
+            return {};
+
+        weight::Portie portie(xmllot->GetPortie().Getnaam());
+        portie.SetUnits(Str::ToDouble(xmllot->GetPortie().Geteenheden()));
+
+        lot = std::make_unique<weight::PortionedLot>(mModel.GetCalculator(), portie);
+        lot->SetNumberOfPortions(Str::ToDouble(xmllot->Gethoeveelheid()));
+        lot->SetKCalPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Getkcalper100()));
+        lot->SetVetPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Getvetper100()));
+        lot->SetKoolhydratenPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Getkoolhydratenper100().c_str()));
+        lot->SetEiwitPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Geteiwitper100().c_str()));
+        lot->SetVezelsPer100Units(Str::ToDouble(xmllot->GetVoedingswaarde()->Getvezelsper100().c_str()));
     }
     else
     {
-        WW::VMDefinitie* def = mModel.FindVoedingsmiddelDefinitie(aVoedingsmiddel.Getnaam());
+        weight::VMDefinitie* def = mModel.FindVoedingsmiddelDefinitie(aVoedingsmiddel.Getnaam());
         if (def == nullptr)
         {
             ::MessageBox(0, (_T("Unable to interpret voedingsmiddel ") + aVoedingsmiddel.Getnaam()).c_str(),
                          _T("ERROR"), MB_OK);
+            return {};
         }
         else
         {
             if (!def->GetPortieList().empty())
             {
-                WW::Portie& portie = *def->GetPortieList()[0];
-
-                if (def->IsCalculated())
-                {
-                    WW::CalculatedVMDef* cvmdef = def->GetCalculatedVMDef();
-                    assert(def != nullptr);
-                    WW::CalculatedLot* clot = new WW::CalculatedLot(mModel.GetCalculator(), portie);
-                    clot->SetNumberOfPortions(1);
-                    clot->SetParameters(cvmdef->GetParameters());
-                    lot = clot;
-                }
-                else if (def->IsFixed())
-                {
-                    WW::FixedVMDef* fvmdef = def->GetFixedVMDef();
-                    assert(def != nullptr);
-                    WW::FixedLot* flot = new WW::FixedLot(portie);
-                    flot->SetNumberOfPortions(1);
-                    flot->SetPointsPer100Units(fvmdef->GetPointsPer100Units());
-                    lot = flot;
-                }
+                weight::Portie& portie = *def->GetPortieList()[0];
+                lot = std::make_unique< weight::PortionedLot>(mModel.GetCalculator(), portie);
+                lot->SetNumberOfPortions(1);
+                lot->SetParameters(def->GetNutritionalValue().GetParameters());
             }
             else
             {
@@ -560,41 +524,33 @@ std::unique_ptr<WW::Voedingsmiddel> XmlReader::Create(const XmlVoedingsmiddel& a
         }
     }
 
-    auto voedingsmiddel = std::make_unique<WW::Voedingsmiddel>(aVoedingsmiddel.Getnaam(), lot,
-                                                               WW::Unit(mModel, aVoedingsmiddel.Getunit()));
-    voedingsmiddel->SetCategory(WW::CategorieNaam(mModel, aVoedingsmiddel.Getcategorie()));
+    auto voedingsmiddel = std::make_unique<weight::Voedingsmiddel>(aVoedingsmiddel.Getnaam(), std::move(lot),
+                                                                   aVoedingsmiddel.Getunit());
+    voedingsmiddel->SetCategory(aVoedingsmiddel.Getcategorie());
     return std::move(voedingsmiddel);
 }
 
 
-std::unique_ptr<WW::Recept> XmlReader::Create(const XmlRecept& aRecept)
+std::unique_ptr<weight::Recept> XmlReader::Create(const XmlRecept& aRecept)
 {
-    auto recept = std::make_unique<WW::Recept>(aRecept.Getnaam());
+    auto recept = std::make_unique<weight::Recept>(aRecept.Getnaam());
     recept->SetPointsPerPortion(Str::ToDouble(aRecept.Getpunten()));
     recept->SetNumberOfPortions(Str::ToDouble(aRecept.Gethoeveelheid()));
     return std::move(recept);
 }
 
 
-std::unique_ptr<WW::Gerecht> XmlReader::Create(const XmlGerecht& aGerecht)
+std::unique_ptr<weight::ManualItem> XmlReader::Create(const XmlHandmatigitem& anItem)
 {
-    auto gerecht = std::make_unique<WW::Gerecht>(aGerecht.Getnaam(), Str::ToDouble(aGerecht.Getpunten()));
-    gerecht->SetNumberOfPortions(Str::ToDouble(aGerecht.Gethoeveelheid()));
-    return std::move(gerecht);
-}
-
-
-std::unique_ptr<WW::ManualItem> XmlReader::Create(const XmlHandmatigitem& anItem)
-{
-    auto item = std::make_unique<WW::ManualItem>(anItem.Getnaam(), Str::ToDouble(anItem.Getpunten()));
+    auto item = std::make_unique<weight::ManualItem>(anItem.Getnaam(), Str::ToDouble(anItem.Getpunten()));
     item->Set(Str::ToDouble(anItem.Getpunten()), Str::ToDouble(anItem.Gethoeveelheid()));
     return item;
 }
 
 
-std::unique_ptr<WW::Day> XmlReader::Create(const XmlDag& aDag)
+std::unique_ptr<weight::Day> XmlReader::Create(const XmlDag& aDag)
 {
-    auto day = std::make_unique<WW::Day>(Utils::ToDate(aDag.Getdatum()));
+    auto day = std::make_unique<weight::Day>(Utils::ToDate(aDag.Getdatum()));
     if (!aDag.Getgewicht().empty())
         day->SetWeight(Str::ToDouble(aDag.Getgewicht().c_str()));
 
@@ -609,10 +565,6 @@ std::unique_ptr<WW::Day> XmlReader::Create(const XmlDag& aDag)
     for (size_t i = 0; i < recepten.size(); ++i)
         day->Add(Create(*recepten[i]));
 
-    const std::vector<XmlGerecht*>& gerechten(aDag.GetGerechtList());
-    for (size_t i = 0; i < gerechten.size(); ++i)
-        day->Add(Create(*gerechten[i]));
-
     const std::vector<XmlHandmatigitem*>& handmatig(aDag.GetHandmatigitemList());
     for (size_t i = 0; i < handmatig.size(); ++i)
         day->Add(Create(*handmatig[i]));
@@ -625,13 +577,13 @@ std::unique_ptr<WW::Day> XmlReader::Create(const XmlDag& aDag)
 }
 
 
-WW::Bonus XmlReader::Create(const XmlBonuscell& aCell)
+weight::Bonus XmlReader::Create(const XmlBonuscell& aCell)
 {
-    WW::Bonus::INTENSITY intensity =
-        aCell.Getintensiteit() == XmlBonuscell::intensiteit_hoog ? WW::Bonus::INTENSITY::High :
-        aCell.Getintensiteit() == XmlBonuscell::intensiteit_middel ? WW::Bonus::INTENSITY::Medium :
-        WW::Bonus::INTENSITY::Low;
-    return WW::Bonus(intensity, aCell.Getminuten(), aCell.Getpunten());
+    weight::Bonus::INTENSITY intensity =
+        aCell.Getintensiteit() == XmlBonuscell::intensiteit_hoog ? weight::Bonus::INTENSITY::High :
+        aCell.Getintensiteit() == XmlBonuscell::intensiteit_middel ? weight::Bonus::INTENSITY::Medium :
+        weight::Bonus::INTENSITY::Low;
+    return weight::Bonus(intensity, aCell.Getminuten(), aCell.Getpunten());
 }
 
 

@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace WW {
+namespace weight {
 
 enum class Result {
     Ok, FileNotFound, ErrorInFilename,

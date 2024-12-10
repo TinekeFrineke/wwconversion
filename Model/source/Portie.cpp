@@ -7,16 +7,16 @@
 
 
 
-namespace WW
+namespace weight
 {
 
 
 int Entity<Portie>::mNumberOfInstances = 0;
 
 
-Portie::Portie(const PortieNaam& aName)
-    : mName(aName),
-    mUnits(0)
+Portie::Portie(const std::wstring& aName)
+    : mName(aName)
+    , mUnits(0)
 {
 #ifdef FIND_LEAKS
     Register();
@@ -25,8 +25,8 @@ Portie::Portie(const PortieNaam& aName)
 
 
 Portie::Portie(const Portie& aPortie)
-    : mName(aPortie.mName),
-    mUnits(aPortie.mUnits)
+    : mName(aPortie.mName)
+    , mUnits(aPortie.mUnits)
 {
 #ifdef FIND_LEAKS
     Register();
@@ -42,4 +42,4 @@ Portie::~Portie()
 }
 
 
-} // namespace WW
+} // namespace weight

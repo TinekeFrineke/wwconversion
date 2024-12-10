@@ -4,21 +4,23 @@
 
 #include "xmlbase/XmlBase.h"
 
-namespace WW
+namespace weight
 {
 class Day;
-class FixedLot;
 class Gerecht;
 class ManualItem;
 class Model;
 class Portie;
+class PortionedLot;
 class Recept;
 class CalculatedLot;
 class Voedingsmiddel;
 class Week;
+
+struct FoodParameters;
 }
 
-namespace ww2019
+namespace ww2024
 {
 class XmlDag;
 class XmlFixedlot;
@@ -31,39 +33,39 @@ class XmlRecept;
 class XmlStandardlot;
 class XmlSterrelot;
 class XmlVoedingsmiddel;
+class XmlVoedingswaarde;
 
 
 class XmlWriter
 {
 public:
     // TF_TODO Writer for bonus points
-    XmlWriter(WW::Model & aModel) : mModel(aModel) {}
+    XmlWriter(weight::Model & aModel) : mModel(aModel) {}
 
-    WW::Result Write(const std::tstring & aDirectory);
+    weight::Result Write(const std::tstring & aDirectory);
 
-    WW::Result Create(const WW::Day & aDag, XmlDag & aDay);
-    WW::Result Create(const WW::Voedingsmiddel & aMiddel, XmlVoedingsmiddel & aDay);
-    WW::Result Create(const WW::Recept & aMiddel, XmlRecept & aRecept);
-    WW::Result Create(const WW::Gerecht & aMiddel, XmlGerecht & aGerecht);
-    WW::Result Create(const WW::ManualItem & anItem, XmlHandmatigitem & anXmlItem);
-    WW::Result Create(const WW::Portie & aPortie, XmlPortie & anXmlPortie);
-    WW::Result Create(const WW::CalculatedLot & aLot, XmlStandardlot & anXmlLot);
-    WW::Result Create(const WW::FixedLot & aLot, XmlStandardlot & anXmlLot);
+    weight::Result Create(const weight::Day & aDag, XmlDag & aDay);
+    weight::Result Create(const weight::Voedingsmiddel & aMiddel, XmlVoedingsmiddel & aDay);
+    weight::Result Create(const weight::Recept & aMiddel, XmlRecept & aRecept);
+    weight::Result Create(const weight::ManualItem & anItem, XmlHandmatigitem & anXmlItem);
+    weight::Result Create(const weight::Portie & aPortie, XmlPortie & anXmlPortie);
+    std::unique_ptr<XmlVoedingswaarde> CreateVoedingswaarde(const weight::FoodParameters& parameters);
+    //weight::Result Create(const weight::PortionedLot & aLot, XmlStandardlot & anXmlLot);
 
 private:
     XmlWriter & operator=(const XmlWriter &) = delete;
 
-    WW::Result WritePersonalia(const std::tstring & aFilename);
-    WW::Result WriteUnits(const std::tstring & aFilename);
-    WW::Result WriteVoedingsmiddelDefinities(const std::tstring & aFilename);
-    WW::Result WriteRecepten(const std::tstring & aFilename);
-    WW::Result WriteGerechten(const std::tstring & aFilename);
-    WW::Result WriteWeeks(const std::tstring & aDirectory);
+    weight::Result WritePersonalia(const std::tstring & aFilename);
+    weight::Result WriteUnits(const std::tstring & aFilename);
+    weight::Result WriteVoedingsmiddelDefinities(const std::tstring & aFilename);
+    weight::Result WriteRecepten(const std::tstring & aFilename);
+    //weight::Result WriteGerechten(const std::tstring & aFilename);
+    weight::Result WriteWeeks(const std::tstring & aDirectory);
 
-    WW::Result Write(WW::Week & aWeek, const std::tstring & aFilename);
+    weight::Result Write(weight::Week & aWeek, const std::tstring & aFilename);
 
-    WW::Model& mModel;
+    weight::Model& mModel;
 };
 
 
-} // namespace ww2019
+} // namespace ww2024

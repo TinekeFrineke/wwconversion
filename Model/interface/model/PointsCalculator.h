@@ -1,9 +1,11 @@
 #pragma once
 
+#include <memory>
+
 #include "WWDefinitions.h"
 
 
-namespace WW
+namespace weight
 {
 
 struct FoodParameters
@@ -14,11 +16,11 @@ public:
                    double aVetPer100Units,
                    double aVezelsPer100Units,
                    double aKoolhydratenPer100Units)
-        : mKCalPer100Units(aKCalPer100Units),
-        mEiwitPer100Units(anEiwitPer100Units),
-        mVetPer100Units(aVetPer100Units),
-        mVezelsPer100Units(aVezelsPer100Units),
-        mKoolhydratenPer100Units(aKoolhydratenPer100Units)
+        : mKCalPer100Units(aKCalPer100Units)
+        , mEiwitPer100Units(anEiwitPer100Units)
+        , mVetPer100Units(aVetPer100Units)
+        , mVezelsPer100Units(aVezelsPer100Units)
+        , mKoolhydratenPer100Units(aKoolhydratenPer100Units)
     {
     }
 
@@ -57,46 +59,24 @@ private:
 class PointsCalculatorBase
 {
 public:
-    PointsCalculatorBase() {}
-    virtual               ~PointsCalculatorBase() = default;
+    PointsCalculatorBase() = default;
+    virtual ~PointsCalculatorBase() = default;
 
-    virtual double        GetPointsPer100Units(const FoodParameters& aParameters) const = 0;
-};
-
-
-class ProPointsCalculator: public PointsCalculatorBase
-{
-public:
-    double                GetPointsPer100Units(const FoodParameters& aParameters) const;
-
-private:
-    static const double   mEiwittenFactor;
-    static const double   mKoolhydratenFactor;
-    static const double   mVettenFactor;
-    static const double   mVezelFactor;
-};
-
-
-class FlexiPointsCalculator: public PointsCalculatorBase
-{
-public:
-    double                GetPointsPer100Units(const FoodParameters& aParameters) const;
+    virtual double GetPointsPer100Units(const FoodParameters& aParameters) const = 0;
 };
 
 
 class KCalCalculator: public PointsCalculatorBase
 {
 public:
-    double                GetPointsPer100Units(const FoodParameters& aParameters) const;
-
-private:
+    double GetPointsPer100Units(const FoodParameters& aParameters) const override;
 };
 
 
 class CarboHydratesCalculator: public PointsCalculatorBase
 {
 public:
-    double                GetPointsPer100Units(const FoodParameters& aParameters) const;
+    double GetPointsPer100Units(const FoodParameters& aParameters) const override;
 
 private:
 };
@@ -117,8 +97,8 @@ private:
     PointsCalculator& operator=(const PointsCalculator& aCalculator);
     PointsCalculator(const PointsCalculator& aCalculator);
 
-    PointsCalculatorBase* mImplementation;
+    std::unique_ptr<PointsCalculatorBase> mImplementation;
     STRATEGY_TYPE         mStrategy;
 };
 
-} // namespace WW
+} // namespace weight

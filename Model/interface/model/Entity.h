@@ -4,47 +4,50 @@
 
 // Clas should be useful for detecting memory leaks
 
-namespace WW
+namespace weight
 {
 
 class EntityBase
 {
 protected:
-    virtual                       ~EntityBase() {}
-    void                          Register(const std::tstring& aClassName,
-                                           const std::tstring& anInstanceName,
-                                           int                  aNumberOfInstances);
-    void                          Unregister(const std::tstring& aClassName,
-                                             const std::tstring& anInstanceName,
-                                             int                  aNumberOfInstances);
+    virtual ~EntityBase() = default;
+
+    void Register(const std::wstring& aClassName,
+                  const std::wstring& anInstanceName,
+                  int                  aNumberOfInstances) noexcept;
+    void Unregister(const std::wstring& aClassName,
+                    const std::wstring& anInstanceName,
+                    int                  aNumberOfInstances) noexcept;
 };
 
 template <class CLASS>
 class Entity : public EntityBase
 {
 public:
-    void                          Register();
-    void                          Unregister();
+    virtual ~Entity() = default;
+
+    void Register() noexcept;
+    void Unregister() noexcept;
 
 protected:
-    virtual std::tstring          GetInstanceName() const = 0;
+    virtual std::wstring GetInstanceName() const noexcept = 0;
 
 private:
-    static int                    mNumberOfInstances;
+    static int mNumberOfInstances;
 };
 
 
 template<class CLASS>
-void Entity<CLASS>::Register()
+void Entity<CLASS>::Register() noexcept
 {
     EntityBase::Register(CLASS::GetClassName(), GetInstanceName(), ++mNumberOfInstances);
 }
 
 
 template<class CLASS>
-void Entity<CLASS>::Unregister()
+void Entity<CLASS>::Unregister() noexcept
 {
     EntityBase::Unregister(CLASS::GetClassName(), GetInstanceName(), --mNumberOfInstances);
 }
 
-} // namespace WW
+} // namespace weight

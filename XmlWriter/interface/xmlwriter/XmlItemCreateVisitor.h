@@ -4,16 +4,15 @@
 
 #include "model/Item.h"
 
-namespace WW
+namespace weight
 {
 class Recept;
 }
 
 
-namespace ww2019
+namespace ww2024
 {
 class XmlDag;
-class XmlGerecht;
 class XmlHandmatigitem;
 class XmlRecept;
 class XmlReceptdef;
@@ -21,16 +20,15 @@ class XmlVoedingsmiddel;
 class XmlWriter;
 
 
-class XmlItemCreateVisitor : public WW::ItemVisitor
+class XmlItemCreateVisitor : public weight::ItemVisitor
 {
 public:
     XmlItemCreateVisitor(XmlWriter& aWriter) : mWriter(aWriter) {}
 
 protected:
-    std::unique_ptr<XmlVoedingsmiddel> Create(WW::Voedingsmiddel& aVoedingsmiddel);
-    std::unique_ptr<XmlRecept> Create(WW::Recept& aRecept);
-    std::unique_ptr<XmlGerecht> Create(WW::Gerecht& aGerecht);
-    std::unique_ptr<XmlHandmatigitem> Create(WW::ManualItem& anItem);
+    std::unique_ptr<XmlVoedingsmiddel> Create(weight::Voedingsmiddel& aVoedingsmiddel);
+    std::unique_ptr<XmlRecept> Create(weight::Recept& aRecept);
+    std::unique_ptr<XmlHandmatigitem> Create(weight::ManualItem& anItem);
 
 private:
     XmlItemCreateVisitor& operator=(const XmlItemCreateVisitor&) = delete;
@@ -47,10 +45,9 @@ public:
         : XmlItemCreateVisitor(aWriter),
         mDag(aDag) {}
 
-    virtual void            Visit(WW::Recept& aRecept);
-    virtual void            Visit(WW::Gerecht& aGerecht);
-    virtual void            Visit(WW::Voedingsmiddel& aVoedingsmiddel);
-    virtual void            Visit(WW::ManualItem& anItem);
+    virtual void            Visit(weight::Recept& aRecept);
+    virtual void            Visit(weight::Voedingsmiddel& aVoedingsmiddel);
+    virtual void            Visit(weight::ManualItem& anItem);
 
 private:
     XmlDagItemCreateVisitor& operator=(const XmlDagItemCreateVisitor&) = delete;
@@ -67,10 +64,9 @@ public:
         : XmlItemCreateVisitor(aWriter)
         , mReceptDef(aReceptDef) {}
 
-    virtual void            Visit(WW::Recept& aRecept);
-    virtual void            Visit(WW::Gerecht& aGerecht);
-    virtual void            Visit(WW::Voedingsmiddel& aVoedingsmiddel);
-    virtual void            Visit(WW::ManualItem& anItem);
+    virtual void            Visit(weight::Recept& aRecept);
+    virtual void            Visit(weight::Voedingsmiddel& aVoedingsmiddel);
+    virtual void            Visit(weight::ManualItem& anItem);
 
 private:
     XmlReceptItemCreateVisitor& operator=(const XmlReceptItemCreateVisitor&) = delete;

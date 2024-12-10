@@ -1,7 +1,7 @@
 // Conversion.cpp : Defines the entry point for the console application.
 //
 
-#include "model/WWModel.h"
+#include "model/Model.h"
 #include "xmlreader/XmlReader.h"
 #include "xmlwriter/XmlWriter.h"
 
@@ -12,14 +12,14 @@ int _tmain(int argc, _TCHAR* argv[])
     if (argc < 3)
         return -1;
 
-    WW::Model model;
+    weight::Model model;
 
     XERCES_CPP_NAMESPACE::XMLPlatformUtils::Initialize();
 
     ww_1_2::XmlReader reader(model);
     reader.Read(argv[1]);
 
-    ww2019::XmlWriter writer(model);
+    ww2024::XmlWriter writer(model);
     writer.Write(argv[2]);
 
     XERCES_CPP_NAMESPACE::XMLPlatformUtils::Terminate();

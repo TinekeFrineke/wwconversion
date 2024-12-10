@@ -3,13 +3,12 @@
 
 #include "Utilities/StrUtils.h"
 
-namespace WW
+namespace weight
 {
 
 
 class Item;
 class Recept;
-class Gerecht;
 class ManualItem;
 class Model;
 class PointsCalculator;
@@ -21,7 +20,6 @@ public:
     virtual               ~ItemVisitor() = default;
 
     virtual void          Visit(Recept& aRecept) = 0;
-    virtual void          Visit(Gerecht& aGerecht) = 0;
     virtual void          Visit(Voedingsmiddel& aVoedingsmiddel) = 0;
     virtual void          Visit(ManualItem& anItem) = 0;
 };
@@ -41,4 +39,4 @@ public:
 
 
 
-}
+} // namespace wieght

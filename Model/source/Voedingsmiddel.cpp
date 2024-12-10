@@ -6,24 +6,24 @@
 #include "VoedingsmiddelDefinitie.h"
 
 
-namespace WW
+namespace weight
 {
 
 
 Voedingsmiddel::Voedingsmiddel(const std::tstring& aName,
-                               Lot* aLot,
-                               const Unit& aUnit)
+                               std::unique_ptr<Lot> aLot,
+                               const std::wstring& aUnit)
     : mName(aName),
-    mLot(aLot),
+    mLot(std::move(aLot)),
     mUnit(aUnit)
 {
     assert(mLot != NULL);
 }
 
 
-Voedingsmiddel::Voedingsmiddel(Lot* aLot,
+Voedingsmiddel::Voedingsmiddel(std::unique_ptr<Lot> aLot,
                                const VMDefinitie& aDefinitie)
-    : mLot(aLot),
+    : mLot(std::move(aLot)),
     mUnit(aDefinitie.GetUnit()),
     mName(aDefinitie.GetName()),
     mCategory(aDefinitie.GetCategory())
@@ -55,4 +55,4 @@ void Voedingsmiddel::Accept(ItemVisitor& aVisitor)
 }
 
 
-} // namespace WW
+} // namespace weight
