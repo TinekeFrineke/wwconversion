@@ -41,7 +41,6 @@
 #include "model/Model.h"
 
 #include "XmlItemCreateVisitor.h"
-#include "XmlLotCreateVisitor.h"
 #include "XmlVMCreateVisitor.h"
 
 namespace ww2024

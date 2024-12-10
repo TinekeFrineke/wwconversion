@@ -20,14 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\XmlItemCreateVisitor.cpp" />
-    <ClCompile Include="source\XmlLotCreateVisitor.cpp" />
     <ClCompile Include="source\XmlVMCreateVisitor.cpp" />
     <ClCompile Include="source\XmlWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="interface\xmlwriter\XmlBase.h" />
     <ClInclude Include="interface\xmlwriter\XmlItemCreateVisitor.h" />
-    <ClInclude Include="interface\xmlwriter\XmlLotCreateVisitor.h" />
     <ClInclude Include="interface\xmlwriter\XmlVMCreateVisitor.h" />
     <ClInclude Include="interface\xmlwriter\XmlWriter.h" />
   </ItemGroup>
