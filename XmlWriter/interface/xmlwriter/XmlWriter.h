@@ -7,7 +7,6 @@
 namespace weight
 {
 class Day;
-class Gerecht;
 class ManualItem;
 class Model;
 class Portie;
@@ -23,15 +22,10 @@ struct FoodParameters;
 namespace ww2024
 {
 class XmlDag;
-class XmlFixedlot;
-class XmlFreelot;
-class XmlGerecht;
 class XmlHandmatigitem;
 class XmlModel;
 class XmlPortie;
 class XmlRecept;
-class XmlStandardlot;
-class XmlSterrelot;
 class XmlVoedingsmiddel;
 class XmlVoedingswaarde;
 
@@ -50,7 +44,6 @@ public:
     weight::Result Create(const weight::ManualItem & anItem, XmlHandmatigitem & anXmlItem);
     weight::Result Create(const weight::Portie & aPortie, XmlPortie & anXmlPortie);
     std::unique_ptr<XmlVoedingswaarde> CreateVoedingswaarde(const weight::FoodParameters& parameters);
-    //weight::Result Create(const weight::PortionedLot & aLot, XmlStandardlot & anXmlLot);
 
 private:
     XmlWriter & operator=(const XmlWriter &) = delete;
@@ -59,7 +52,6 @@ private:
     weight::Result WriteUnits(const std::tstring & aFilename);
     weight::Result WriteVoedingsmiddelDefinities(const std::tstring & aFilename);
     weight::Result WriteRecepten(const std::tstring & aFilename);
-    //weight::Result WriteGerechten(const std::tstring & aFilename);
     weight::Result WriteWeeks(const std::tstring & aDirectory);
 
     weight::Result Write(weight::Week & aWeek, const std::tstring & aFilename);

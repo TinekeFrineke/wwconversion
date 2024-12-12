@@ -12,11 +12,15 @@ int _tmain(int argc, _TCHAR* argv[])
     if (argc < 3)
         return -1;
 
+    std::wstring logfile = L"logfile.txt";
+    if (argc == 4)
+        logfile = argv[3];
+
     weight::Model model;
 
     XERCES_CPP_NAMESPACE::XMLPlatformUtils::Initialize();
 
-    ww_1_2::XmlReader reader(model);
+    ww_1_2::XmlReader reader(logfile, model);
     reader.Read(argv[1]);
 
     ww2024::XmlWriter writer(model);

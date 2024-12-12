@@ -18,6 +18,7 @@ class XmlModel;
 class XmlPortie;
 class XmlRecept;
 class XmlVoedingsmiddel;
+class XmlVoedingsmiddeldef;
 }
 
 namespace weight
@@ -35,7 +36,7 @@ namespace ww_1_2
 class XmlReader
 {
 public:
-    XmlReader(weight::Model& aModel);
+    XmlReader(const std::wstring& logfile, weight::Model& aModel);
 
     weight::Result                      Read(const std::tstring& aDirectory);
 
@@ -59,6 +60,9 @@ private:
     std::unique_ptr<weight::ManualItem> Create(const ww_1_2::XmlHandmatigitem& aGerecht);
     std::unique_ptr<weight::Day> Create(const ww_1_2::XmlDag& aDag);
     weight::Bonus                   Create(const ww_1_2::XmlBonuscell& aCell);
+    void LogMessage(const std::wstring& message) const;
+
+    std::wstring m_logfile;
     weight::Model& mModel;
 };
 

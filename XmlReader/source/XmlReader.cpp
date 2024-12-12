@@ -54,8 +54,9 @@ namespace ww_1_2
 {
 
 
-XmlReader::XmlReader(weight::Model& aModel)
-    : mModel(aModel)
+XmlReader::XmlReader(const std::wstring& logfile, weight::Model& aModel)
+    : m_logfile(logfile)
+    , mModel(aModel)
 {
 }
 
@@ -226,9 +227,12 @@ weight::Result XmlReader::ReadVoedingsmiddelDefinities(const std::tstring& aDire
     const std::vector<XmlVoedingsmiddeldef*>& vmlist = xmlvoedingsmiddeldefs->GetVoedingsmiddeldefList();
     for (auto vm : vmlist)
     {
-        if (vm->GetVoedingswaarde() == nullptr)
+        if (vm->GetVoedingswaarde() == nullptr) {
             // This was a formerly fixed points food definition
+            LogMessage(L"XmlVoedingsmiddeldef " + vm->GetVoedingsmiddelbasis().GetVoedingsmiddelheader().Getnaam()
+                       + L" did not contain nutritional values and cannot be converted");
             continue;
+        }
 
         auto nutritionalValue = std::make_unique<weight::NutritionalValue>(mModel.GetCalculator());
         nutritionalValue->SetKCalPer100Units(Str::ToDouble(vm->GetVoedingswaarde()->Getkcalper100().c_str()));
@@ -535,7 +539,7 @@ std::unique_ptr<weight::Recept> XmlReader::Create(const XmlRecept& aRecept)
 {
     auto recept = std::make_unique<weight::Recept>(aRecept.Getnaam());
     recept->SetPointsPerPortion(Str::ToDouble(aRecept.Getpunten()));
-    recept->SetNumberOfPortions(Str::ToDouble(aRecept.Gethoeveelheid()));
+    recept->SetNumberOfPortions(static_cast<int>(Str::ToDouble(aRecept.Gethoeveelheid()) + 0.5));
     return std::move(recept);
 }
 
@@ -543,7 +547,7 @@ std::unique_ptr<weight::Recept> XmlReader::Create(const XmlRecept& aRecept)
 std::unique_ptr<weight::ManualItem> XmlReader::Create(const XmlHandmatigitem& anItem)
 {
     auto item = std::make_unique<weight::ManualItem>(anItem.Getnaam(), Str::ToDouble(anItem.Getpunten()));
-    item->Set(Str::ToDouble(anItem.Getpunten()), Str::ToDouble(anItem.Gethoeveelheid()));
+    item->Set(Str::ToDouble(anItem.Getpunten()));
     return item;
 }
 
@@ -584,6 +588,13 @@ weight::Bonus XmlReader::Create(const XmlBonuscell& aCell)
         aCell.Getintensiteit() == XmlBonuscell::intensiteit_middel ? weight::Bonus::INTENSITY::Medium :
         weight::Bonus::INTENSITY::Low;
     return weight::Bonus(intensity, aCell.Getminuten(), aCell.Getpunten());
+}
+
+void XmlReader::LogMessage(const std::wstring& message) const
+{
+    std::wcout << message << std::endl;
+    std::wofstream output(m_logfile, std::ios::app | std::ios::out);
+    output << message << std::endl;
 }
 
 
