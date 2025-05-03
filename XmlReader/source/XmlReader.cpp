@@ -562,8 +562,8 @@ std::unique_ptr<weight::Day> XmlReader::Create(const XmlDag& aDag)
         day->SetFreeBonusPoints(Str::ToDouble(aDag.Getbonuspunten().c_str()));
 
     const std::vector<XmlVoedingsmiddel*>& vmiddelen(aDag.GetVoedingsmiddelList());
-    for (size_t i = 0; i < vmiddelen.size(); ++i)
-        day->Add(Create(*vmiddelen[i]));
+    for (auto xmlvm : vmiddelen)
+        day->Add(Create(*xmlvm));
 
     const std::vector<XmlRecept*>& recepten(aDag.GetReceptList());
     for (size_t i = 0; i < recepten.size(); ++i)

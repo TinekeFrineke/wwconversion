@@ -1,22 +1,26 @@
 // Conversion.cpp : Defines the entry point for the console application.
 //
 
-#include "model/Model.h"
+#include "model/ModelFactory.h"
 #include "xmlreader/XmlReader.h"
 #include "xmlwriter/XmlWriter.h"
 
 #include <xercesc/util/PlatformUtils.hpp>
 
-int _tmain(int argc, _TCHAR* argv[])
+#include "MessageHandler.h"
+
+
+int main(int argc, char* argv[])
 {
     if (argc < 3)
         return -1;
 
-    std::wstring logfile = L"logfile.txt";
+    std::string logfile = "logfile.txt";
     if (argc == 4)
         logfile = argv[3];
 
-    weight::Model model;
+    weight::ModelFactory factory(std::make_shared<MessageHandler>();
+    auto model = factory.CreateModel();
 
     XERCES_CPP_NAMESPACE::XMLPlatformUtils::Initialize();
 

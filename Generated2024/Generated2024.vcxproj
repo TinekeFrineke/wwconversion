@@ -19,6 +19,60 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="interface\XmlBonuscell.h" />
+    <ClInclude Include="interface\XmlBonuscellReader.h" />
+    <ClInclude Include="interface\XmlBonuscellWriter.h" />
+    <ClInclude Include="interface\XmlBonuslist.h" />
+    <ClInclude Include="interface\XmlBonuslistReader.h" />
+    <ClInclude Include="interface\XmlBonuslistWriter.h" />
+    <ClInclude Include="interface\XmlClass.h" />
+    <ClInclude Include="interface\XmlDag.h" />
+    <ClInclude Include="interface\XmlDagReader.h" />
+    <ClInclude Include="interface\XmlDagWriter.h" />
+    <ClInclude Include="interface\XmlHandmatigitem.h" />
+    <ClInclude Include="interface\XmlHandmatigitemReader.h" />
+    <ClInclude Include="interface\XmlHandmatigitemWriter.h" />
+    <ClInclude Include="interface\XmlPersonalia.h" />
+    <ClInclude Include="interface\XmlPersonaliaReader.h" />
+    <ClInclude Include="interface\XmlPersonaliaWriter.h" />
+    <ClInclude Include="interface\XmlPortie.h" />
+    <ClInclude Include="interface\XmlPortieReader.h" />
+    <ClInclude Include="interface\XmlPortieWriter.h" />
+    <ClInclude Include="interface\XmlRecept.h" />
+    <ClInclude Include="interface\XmlReceptdef.h" />
+    <ClInclude Include="interface\XmlReceptdefReader.h" />
+    <ClInclude Include="interface\XmlReceptdefs.h" />
+    <ClInclude Include="interface\XmlReceptdefsReader.h" />
+    <ClInclude Include="interface\XmlReceptdefsWriter.h" />
+    <ClInclude Include="interface\XmlReceptdefWriter.h" />
+    <ClInclude Include="interface\XmlReceptReader.h" />
+    <ClInclude Include="interface\XmlReceptWriter.h" />
+    <ClInclude Include="interface\XmlStandardlot.h" />
+    <ClInclude Include="interface\XmlStandardlotReader.h" />
+    <ClInclude Include="interface\XmlStandardlotWriter.h" />
+    <ClInclude Include="interface\XmlUnit.h" />
+    <ClInclude Include="interface\XmlUnitReader.h" />
+    <ClInclude Include="interface\XmlUnits.h" />
+    <ClInclude Include="interface\XmlUnitsReader.h" />
+    <ClInclude Include="interface\XmlUnitsWriter.h" />
+    <ClInclude Include="interface\XmlUnitWriter.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddel.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddeldef.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddeldefReader.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddeldefs.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddeldefsReader.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddeldefsWriter.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddeldefWriter.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddelReader.h" />
+    <ClInclude Include="interface\XmlVoedingsmiddelWriter.h" />
+    <ClInclude Include="interface\XmlVoedingswaarde.h" />
+    <ClInclude Include="interface\XmlVoedingswaardeReader.h" />
+    <ClInclude Include="interface\XmlVoedingswaardeWriter.h" />
+    <ClInclude Include="interface\XmlWeek.h" />
+    <ClInclude Include="interface\XmlWeekReader.h" />
+    <ClInclude Include="interface\XmlWeekWriter.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="source\XmlBonuscell.cpp" />
     <ClCompile Include="source\XmlBonuscellReader.cpp" />
     <ClCompile Include="source\XmlBonuscellWriter.cpp" />
@@ -69,57 +123,6 @@
     <ClCompile Include="source\XmlWeekReader.cpp" />
     <ClCompile Include="source\XmlWeekWriter.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="interface\generated2024\XmlBonuscell.h" />
-    <ClInclude Include="interface\generated2024\XmlBonuscellReader.h" />
-    <ClInclude Include="interface\generated2024\XmlBonuscellWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlBonuslist.h" />
-    <ClInclude Include="interface\generated2024\XmlBonuslistReader.h" />
-    <ClInclude Include="interface\generated2024\XmlBonuslistWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlClass.h" />
-    <ClInclude Include="interface\generated2024\XmlDag.h" />
-    <ClInclude Include="interface\generated2024\XmlDagReader.h" />
-    <ClInclude Include="interface\generated2024\XmlDagWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlHandmatigitem.h" />
-    <ClInclude Include="interface\generated2024\XmlHandmatigitemReader.h" />
-    <ClInclude Include="interface\generated2024\XmlHandmatigitemWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlPersonalia.h" />
-    <ClInclude Include="interface\generated2024\XmlPersonaliaReader.h" />
-    <ClInclude Include="interface\generated2024\XmlPersonaliaWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlPortie.h" />
-    <ClInclude Include="interface\generated2024\XmlPortieReader.h" />
-    <ClInclude Include="interface\generated2024\XmlPortieWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlRecept.h" />
-    <ClInclude Include="interface\generated2024\XmlReceptdef.h" />
-    <ClInclude Include="interface\generated2024\XmlReceptdefReader.h" />
-    <ClInclude Include="interface\generated2024\XmlReceptdefs.h" />
-    <ClInclude Include="interface\generated2024\XmlReceptdefsReader.h" />
-    <ClInclude Include="interface\generated2024\XmlReceptdefsWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlReceptdefWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlReceptReader.h" />
-    <ClInclude Include="interface\generated2024\XmlReceptWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlUnit.h" />
-    <ClInclude Include="interface\generated2024\XmlUnitReader.h" />
-    <ClInclude Include="interface\generated2024\XmlUnits.h" />
-    <ClInclude Include="interface\generated2024\XmlUnitsReader.h" />
-    <ClInclude Include="interface\generated2024\XmlUnitsWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlUnitWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddel.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddeldef.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddeldefReader.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddeldefs.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddeldefsReader.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddeldefsWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddeldefWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddelReader.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingsmiddelWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingswaarde.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingswaardeReader.h" />
-    <ClInclude Include="interface\generated2024\XmlVoedingswaardeWriter.h" />
-    <ClInclude Include="interface\generated2024\XmlWeek.h" />
-    <ClInclude Include="interface\generated2024\XmlWeekReader.h" />
-    <ClInclude Include="interface\generated2024\XmlWeekWriter.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -132,27 +135,27 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -174,15 +177,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)$(PlatformTarget)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)$(PlatformTarget)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)$(PlatformTarget)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)$(PlatformTarget)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -192,7 +203,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Projects\VC2019;C:\Projects\VC2019\Utilities\include;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)Interface\generated</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\VC2019;C:\Projects\Combined\Utilities\src\include;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)interface\generated</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -210,7 +222,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Projects\VC2019;C:\Projects\VC2019\Utilities\include;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)Interface\generated</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\VC2019;C:\Projects\Combined\Utilities\src\include;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)interface\generated</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -228,7 +241,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Projects\VC2019;C:\Projects\VC2019\Utilities\include;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)Interface\generated</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\VC2019;C:\Projects\Combined\Utilities\src\include;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)interface\generated</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -246,7 +260,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Projects\VC2019;C:\Projects\VC2019\Utilities\include;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)Interface\generated</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Projects\VC2019;C:\Projects\Combined\Utilities\src\include;C:\Projects\VC2019\xerces280\src\;$(ProjectDir)interface\generated</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>

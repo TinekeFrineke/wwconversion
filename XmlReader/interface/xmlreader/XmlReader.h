@@ -36,17 +36,17 @@ namespace ww_1_2
 class XmlReader
 {
 public:
-    XmlReader(const std::wstring& logfile, weight::Model& aModel);
+    XmlReader(const std::string& logfile, weight::Model& aModel);
 
-    weight::Result                      Read(const std::tstring& aDirectory);
+    weight::Result                      Read(const std::string& aDirectory);
 
-    weight::Result                      ReadPersonalia(const std::tstring& aDirectory);
-    weight::Result                      ReadUnits(const std::tstring& aDirectory);
-    weight::Result                      ReadVoedingsmiddelDefinities(const std::tstring& aDirectory);
-    weight::Result                      ReadRecepten(const std::tstring& aDirectory);
-    weight::Result                      ReadGerechten(const std::tstring& aDirectory);
-    weight::Result                      ReadWeeks(const std::tstring& aDirectory);
-    weight::Result                      ReadBonusCells(const std::tstring& aDirectory);
+    weight::Result                      ReadPersonalia(const std::string& aDirectory);
+    weight::Result                      ReadUnits(const std::string& aDirectory);
+    weight::Result                      ReadVoedingsmiddelDefinities(const std::string& aDirectory);
+    weight::Result                      ReadRecepten(const std::string& aDirectory);
+    weight::Result                      ReadGerechten(const std::string& aDirectory);
+    weight::Result                      ReadWeeks(const std::string& aDirectory);
+    weight::Result                      ReadBonusCells(const std::string& aDirectory);
 
 private:
     XmlReader& operator=(const XmlReader&) = delete;
