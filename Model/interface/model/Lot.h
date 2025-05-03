@@ -19,6 +19,8 @@ public:
     virtual FoodParameters GetParameters() const = 0;
     virtual double GetPointsPer100Units() const = 0;
 
+    virtual void SetNumberOfPortions(double aNumber) = 0;
+
     virtual double GetPoints() const = 0;
 };
 

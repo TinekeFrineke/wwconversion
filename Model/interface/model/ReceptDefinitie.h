@@ -12,13 +12,14 @@ namespace weight
 class ReceptDefinitie
 {
 public:
-    explicit ReceptDefinitie(const std::tstring& aName) : mName(aName) {}
+    explicit ReceptDefinitie(const std::string& aName) : mName(aName) {}
     virtual ~ReceptDefinitie() noexcept = default;
 
-    virtual std::tstring          GetName() const { return mName; }
+    virtual std::string          GetName() const { return mName; }
     virtual double                GetPointsPerPortion() const;
     int                           GetPortions() const { return mPorties.Get(); }
 
+    void                          SetName(const std::string& name) { mName = name; }
     void                          SetPortions(int aPorties) { mPorties.Set(aPorties); }
     void                          Add(std::unique_ptr<Item> anItem);
     void                          Remove(Item* anItem);
@@ -28,7 +29,7 @@ public:
     Subject<int>& NumberOfPortions() noexcept { return mPorties; }
 
 private:
-    std::tstring mName;
+    std::string mName;
     std::vector<std::unique_ptr<Item>> mItems;
 #ifdef NEW_TRAIL
     IntSubject mPorties;

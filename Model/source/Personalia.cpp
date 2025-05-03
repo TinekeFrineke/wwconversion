@@ -8,9 +8,9 @@ namespace weight
 {
 
 
-Personalia::Personalia(const std::tstring& aUserName)
+Personalia::Personalia(const std::string& aUserName)
     : mUserName(aUserName),
-    mDateOfBirth(Utils::Date::Today()),
+    mDateOfBirth(Utils::Today()),
     mKCPuntenTotaal(0),
     mCHPuntenTotaal(0),
     mKCWeekPuntenTotaal(0),
@@ -21,7 +21,7 @@ Personalia::Personalia(const std::tstring& aUserName)
 }
 
 
-double Personalia::GetPuntenTotaal(STRATEGY_TYPE eType) const
+double Personalia::GetPuntenTotaal(STRATEGY_TYPE eType) const noexcept
 {
     switch (eType)
     {
@@ -36,7 +36,7 @@ double Personalia::GetPuntenTotaal(STRATEGY_TYPE eType) const
 }
 
 
-void Personalia::SetPuntenTotaal(STRATEGY_TYPE eType, double aValue)
+void Personalia::SetPuntenTotaal(STRATEGY_TYPE eType, double aValue) noexcept
 {
     switch (eType)
     {

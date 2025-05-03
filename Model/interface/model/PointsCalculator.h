@@ -59,26 +59,9 @@ private:
 class PointsCalculatorBase
 {
 public:
-    PointsCalculatorBase() = default;
     virtual ~PointsCalculatorBase() = default;
 
     virtual double GetPointsPer100Units(const FoodParameters& aParameters) const = 0;
-};
-
-
-class KCalCalculator: public PointsCalculatorBase
-{
-public:
-    double GetPointsPer100Units(const FoodParameters& aParameters) const override;
-};
-
-
-class CarboHydratesCalculator: public PointsCalculatorBase
-{
-public:
-    double GetPointsPer100Units(const FoodParameters& aParameters) const override;
-
-private:
 };
 
 
@@ -89,16 +72,14 @@ public:
     virtual               ~PointsCalculator();
 
     virtual void          SetStrategy(STRATEGY_TYPE eStrategy);
-    STRATEGY_TYPE         GetStrategy() const { return mStrategy; }
 
     virtual double        GetPointsPer100Units(const FoodParameters& aParameters) const;
 
 private:
-    PointsCalculator& operator=(const PointsCalculator& aCalculator);
-    PointsCalculator(const PointsCalculator& aCalculator);
+    PointsCalculator& operator=(const PointsCalculator& aCalculator) = delete;
+    PointsCalculator(const PointsCalculator& aCalculator) = delete;
 
     std::unique_ptr<PointsCalculatorBase> mImplementation;
-    STRATEGY_TYPE         mStrategy;
 };
 
 } // namespace weight

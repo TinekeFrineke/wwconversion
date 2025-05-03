@@ -4,13 +4,31 @@
 namespace weight
 {
 
+namespace {
 
-static int PointsCalculatorInstances = 0;
+int PointsCalculatorInstances = 0;
 
+class KCalCalculator: public PointsCalculatorBase
+{
+public:
+    double GetPointsPer100Units(const FoodParameters& aParameters) const override;
+};
+
+
+class CarboHydratesCalculator: public PointsCalculatorBase
+{
+public:
+    double GetPointsPer100Units(const FoodParameters& aParameters) const override;
+
+private:
+};
+
+
+
+}
 
 PointsCalculator::PointsCalculator()
-    :   mImplementation(std::make_unique<KCalCalculator>())
-    , mStrategy(STRATEGY_TYPE::KCal)
+    : mImplementation(std::make_unique<KCalCalculator>())
 {
 }
 
@@ -36,8 +54,6 @@ void PointsCalculator::SetStrategy(STRATEGY_TYPE eStrategy)
         default:
             throw 0;
     }
-
-    mStrategy = eStrategy;
 }
 
 

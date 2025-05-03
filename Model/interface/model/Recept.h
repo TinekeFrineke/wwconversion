@@ -8,27 +8,27 @@ namespace weight
 {
 
 
-class Recept : public Item
+class Recept: public Item
 {
 public:
-                                Recept(const std::tstring & aName) : mName(aName) {}
-  virtual                       ~Recept();
+    explicit Recept(const std::string& aName) : mName(aName) {}
+    virtual                       ~Recept();
 
-  virtual std::tstring          GetName() const                         { return mName; }
-  virtual double                GetPoints() const;
+    std::string GetName() const override { return mName; }
+    double GetPoints() const override;
+    void Accept(ItemVisitor& aVisitor) override;
 
-  int                           GetNumberOfPortions() const             { return mNumberOfPortions; }
-  double                        GetPointsPerPortion() const             { return mPointsPerPortion; }
+    int GetNumberOfPortions() const noexcept { return mNumberOfPortions; }
+    double GetPointsPerPortion() const noexcept { return mPointsPerPortion; }
 
-  void                          SetNumberOfPortions(int aNumber)        { mNumberOfPortions = aNumber; }
-  void                          SetPointsPerPortion(double aPunten)     { mPointsPerPortion = aPunten; }
+    void SetNumberOfPortions(int aNumber) noexcept { mNumberOfPortions = aNumber; }
+    void SetPointsPerPortion(double aPunten) noexcept { mPointsPerPortion = aPunten; }
 
-  virtual void                  Accept(ItemVisitor & aVisitor);
 
 private:
-  std::tstring                  mName;
-  int                           mNumberOfPortions;
-  double                        mPointsPerPortion;
+    std::string mName;
+    int mNumberOfPortions{};
+    double mPointsPerPortion{};
 };
 
 

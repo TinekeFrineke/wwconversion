@@ -1,27 +1,27 @@
 #pragma once
 
-#include <map>
-
 #include "IWeekRepository.h"
-//#include "UniqueRepository.h"
 
 
 namespace weight {
 
+class IMessageHandler;
 class Week;
 
 class WeekRepository
     : public IWeekRepository
-    //, private UniqueRepository<VMDefinitie>
 {
 public:
-    // Inherited via IFoodDefinitionRepository
-    //bool Has(const std::wstring& name) const override;
-    //VMDefinitie* Find(const std::wstring& name) const override;
-    bool Add(std::unique_ptr<Week> definition) override;
-    //bool Remove(const std::wstring& name) override;
-    void Clear() override;
-    std::vector<Week*> GetAll() const override;
+    WeekRepository(std::shared_ptr<IMessageHandler> messageHandler);
+
+    IWeek* Create(const Utils::Date& date) override;
+    bool Add(std::unique_ptr<IWeek> definition) override;
+    virtual IWeek* FindWeekContaining(const Utils::Date& date) const override;
+    std::vector<IWeek*> GetAll() const override;
+
+private:
+    std::shared_ptr<IMessageHandler> m_messageHandler;
+    std::vector<std::unique_ptr<IWeek>> m_weeks;
 };
 
 } // namespace weight

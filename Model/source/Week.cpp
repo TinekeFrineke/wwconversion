@@ -5,6 +5,7 @@
 
 #include "Day.h"
 #include "Model.h"
+#include "ModelFactory.h"
 
 #ifdef min
 # undef min
@@ -19,10 +20,10 @@ namespace weight
 
 
 Week::Week(const Utils::Date& aStartDate,
-           const Utils::Date& aEndDate)
-    : mStartDate(aStartDate),
-    mEndDate(aEndDate),
-    mStrategy(STRATEGY_TYPE::KCal)
+           const Utils::Date& aEndDate) noexcept
+    : mStartDate(aStartDate)
+    , mEndDate(aEndDate)
+    , mStrategy(STRATEGY_TYPE::KCal)
 {
 }
 
@@ -30,24 +31,28 @@ Week::Week(const Utils::Date& aStartDate,
 Week::~Week() = default;
 
 
-Day* Week::GetDay(const Utils::Date& aDay)
+IDay* Week::GetDay(const Utils::Date& aDay)
 {
-    for (size_t i = 0; i < mDays.size(); ++i)
-        if (mDays[i]->GetDate() == aDay)
-            return mDays[i].get();
+    auto x = std::find_if(mDays.begin(), mDays.end(), [aDay] (const std::unique_ptr<IDay>& day) noexcept {
+        return day->GetDate() == aDay;
+    });
+    if (x != mDays.end())
+        return x->get();
 
     return nullptr;
 }
 
 
-bool Week::Add(std::unique_ptr<Day> aDay)
+bool Week::Add(std::unique_ptr<IDay> aDay)
 {
     if (aDay->GetDate() < mStartDate || aDay->GetDate() > mEndDate)
         return false;
 
-    for (size_t i = 0; i < mDays.size(); ++i)
-        if (mDays[i]->GetDate() == aDay->GetDate())
-            return false;
+    auto dayIter = std::find_if(mDays.begin(), mDays.end(), [&aDay] (const std::unique_ptr<IDay>& day) noexcept {
+        return day->GetDate() == aDay->GetDate();
+    });
+    if (dayIter != mDays.end())
+        return false;
 
     mDays.push_back(std::move(aDay));
     return true;
@@ -104,8 +109,7 @@ double Week::GetWeekPointsLeft(const Utils::Date& aDate)
                 }
             }
 
-            int daysleft;
-            mEndDate.DaysDifference(aDate, daysleft);
+            int daysleft = mEndDate.DaysDifference(aDate);
             weekpoints += daysleft * GetSaveablePoints();
 
             return weekpoints;
@@ -118,7 +122,7 @@ double Week::GetWeekPointsLeft(const Utils::Date& aDate)
 }
 
 
-void Week::SetStrategy(STRATEGY_TYPE eType, Model& aModel)
+void Week::SetStrategy(STRATEGY_TYPE eType, IModel& aModel)
 {
     if (mStrategy == eType)
         return;
@@ -126,18 +130,6 @@ void Week::SetStrategy(STRATEGY_TYPE eType, Model& aModel)
     mStrategy = eType;
     mPoints = aModel.GetPuntenTotaal(mStrategy);
     mSaveablePoints = aModel.GetWeekPuntenTotaal();
-    Recalculate(aModel);
-}
-
-
-// Recalculates the points for the days in the week
-void Week::Recalculate(Model& aModel)
-{
-    PointsCalculator calculator;
-    calculator.SetStrategy(mStrategy);
-
-    for (size_t i = 0; i < mDays.size(); ++i)
-        mDays[i]->Recalculate(aModel, calculator);
 }
 
 
@@ -146,11 +138,8 @@ bool Week::SetEndDate(const Utils::Date& aDate)
     if (aDate < mStartDate)
         return false;
 
-    int daysdifference;
-    if (!mStartDate.DaysDifference(aDate, daysdifference))
-        return false;
-
-    if (daysdifference < 1 || daysdifference > 13)
+    int daysdifference = mStartDate.DaysDifference(aDate);
+    if (daysdifference > 13)
         return false;
 
     mEndDate = aDate;

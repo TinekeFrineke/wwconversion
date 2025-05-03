@@ -18,8 +18,8 @@ int Entity<VMDefinitie>::mNumberOfInstances = 0;
 
 
 VMDefinitie::VMDefinitie(std::shared_ptr<weight::PointsCalculator> calculator,
-                         const std::tstring& aName,
-                         const std::wstring& aUnit,
+                         const std::string& aName,
+                         const std::string& aUnit,
                          std::unique_ptr<NutritionalValue> nutritionalValue)
     : m_calculator(std::move(calculator))
     , mName(aName)
@@ -110,11 +110,63 @@ bool VMDefinitie::RemovePortie(Portie* aPortie)
     return false;
 }
 
+bool VMDefinitie::RemovePortie(const std::string& name)
+{
+    for (std::vector<std::unique_ptr<Portie>>::iterator iter = mPortieList.begin(); iter != mPortieList.end(); ++iter)
+    {
+        if (name == ((*iter)->GetName()))
+        {
+            mPortieList.erase(iter);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+void VMDefinitie::SetNutritionalValues(const FoodParameters& parameters)
+{
+    mPoints->SetParameters(parameters);
+}
+
 
 double VMDefinitie::GetPointsPer100Units() const
 {
     return mPoints->GetPointsPer100Units();
 }
+
+
+void VMDefinitie::SetKCalPer100Units(double value)
+{
+    mPoints->SetKCalPer100Units(value);
+}
+
+
+void VMDefinitie::SetVetPer100Units(double value)
+{
+    mPoints->SetFatPer100Units(value);
+}
+
+
+void VMDefinitie::SetEiwitPer100Units(double value)
+{
+    mPoints->SetFatPer100Units(value);
+}
+
+
+void VMDefinitie::SetKoolhydratenPer100Units(double value)
+{
+    mPoints->SetCarbohydratesPer100Units(value);
+}
+
+
+void VMDefinitie::SetVezelsPer100Units(double value)
+{
+    mPoints->SetFibersPer100Units(value);
+}
+
+
 
 
 } // namespace weight

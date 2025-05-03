@@ -1,17 +1,16 @@
 #pragma once
 
 
-#include "Utilities/StrUtils.h"
+#include <string>
 
 namespace weight
 {
 
 
 class Item;
-class Recept;
 class ManualItem;
-class Model;
 class PointsCalculator;
+class Recept;
 class Voedingsmiddel;
 
 class ItemVisitor
@@ -30,11 +29,9 @@ class Item
 {
 public:
     virtual               ~Item() = default;
-    virtual std::tstring  GetName() const = 0;
+    virtual std::string   GetName() const = 0;
     virtual double        GetPoints() const = 0;
     virtual void          Accept(ItemVisitor& aVisitor) = 0;
-
-    virtual void          Recalculate(Model& /*aModel*/, const PointsCalculator& /*aCalculator*/) {}
 };
 
 
